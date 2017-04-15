@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "standard",
+    "plugin:flowtype/recommended",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "standard",
+    "promise",
+    "flowtype",
+    "react"
+  ],
+  "rules": {
+    "newline-per-chained-call": 1,
+    "import/no-duplicates": 2,
+    "no-duplicate-imports": 0
+  },
+  "env": {
+    "jest": true
+  }
+}

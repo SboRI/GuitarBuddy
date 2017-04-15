@@ -1,0 +1,22 @@
+.String {
+    display: flex;
+    flex-flow: row;
+    width: 100vw;
+    min-width: 650px;
+    /*position: static;
+
+    display: table;
+    clear: both;*/
+}
+
+.String:first-child {
+    border-top-style: solid;
+    border-top-color: #adb3bc;
+    border-top-width: 3px;
+}
+
+.String:last-child {
+    border-bottom-style: solid;
+    border-bottom-color: #adb3bc;
+    border-bottom-width: 3px;
+}

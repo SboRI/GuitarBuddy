@@ -1,0 +1,8 @@
+.Fretboard {
+    display: flex;
+    flex-flow: column;
+    width: 100vw;
+    min-width: 960px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
