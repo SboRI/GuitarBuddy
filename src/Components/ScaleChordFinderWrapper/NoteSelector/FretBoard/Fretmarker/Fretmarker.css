@@ -1,0 +1,55 @@
+.Fretmarker {
+    display: flex;
+    flex-flow: row;
+    width: 100vw;
+    min-width: 650px;
+    /*position: static;
+
+    display: table;
+    clear: both;*/
+}
+
+.Fretmark {
+    color: white;
+    position: relative;
+    flex-grow: 1;
+    /*min-width: 50px;*/
+    min-height: 20px;
+    width: 50px;
+    user-select: none;
+    border-style: none;
+    vertical-align: bottom;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 100ms ease-in-out
+}
+
+.Fretmark:first-child {
+    min-width: 70px;
+    border-right-style: solid;
+    border-right-color: transparent;
+    border-right-width: 5px;
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.Fretmark:last-of-type {
+    border-right-style: solid;
+    border-right-color: grey;
+    border-right-width: 5px;
+}
+
+.singleFretmark>.fretDot {
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 50%;
+    background-color: black;
+}
+
+.doubleFretmark>.fretDot {
+    min-width: 10px;
+    min-height: 20px;
+    border-radius: 50%;
+    background-color: black;
+}

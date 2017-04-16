@@ -1,15 +1,17 @@
 // @flow
 
 import React from 'react'
-import String from './String/String.js'
+
 import _ from 'lodash'
 // import fp from 'lodash/fp'
-// import {Notes} from '../../../../Scales/Notes.js'
-import type {Note}
-from '../../../../Scales/Notes.js'
-
+import {Notes} from '../../../../Scales/Notes.js'
+import type {Note} from '../../../../Scales/Notes.js'
 // Stylesheet
 import './Fretboard.css'
+
+// Components
+import String from './String/String.js'
+import Fretmarker from './Fretmarker/Fretmarker.js'
 
 type Props = {
     numFrets: number,
@@ -29,9 +31,17 @@ class Fretboard extends React.Component {
 
   render () {
     const tuningTopToBottom:Note[] = [...this.props.tuning].reverse()
+
+    const classNames = function (baseNote) {
+      return Notes.equalsStrict(baseNote, _.first(tuningTopToBottom))
+    ? 'String-first' : Notes.equalsStrict(baseNote, _.last(tuningTopToBottom))
+    ? 'String-last' : ''
+    }
+
     const strings = _.map(tuningTopToBottom, (baseNote, index) => {
       return <String
-        numFrets={this.props.numFrets + 1}
+        numFrets={this.props.numFrets}
+        classNames={classNames(baseNote)}
         tuning={baseNote}
         selectedNotes={this.props.selectedNotes}
         rootNote={this.props.rootNote}
@@ -45,6 +55,7 @@ class Fretboard extends React.Component {
 
     return <div className={'Fretboard'}>
       {strings}
+      <Fretmarker numFrets={this.props.numFrets}/>
     </div>
   }
 

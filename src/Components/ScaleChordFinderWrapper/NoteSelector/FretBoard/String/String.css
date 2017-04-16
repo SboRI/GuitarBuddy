@@ -9,13 +9,13 @@
     clear: both;*/
 }
 
-.String:first-child {
+.String-first {
     border-top-style: solid;
     border-top-color: #adb3bc;
     border-top-width: 3px;
 }
 
-.String:last-child {
+.String-last {
     border-bottom-style: solid;
     border-bottom-color: #adb3bc;
     border-bottom-width: 3px;

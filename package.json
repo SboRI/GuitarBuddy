@@ -25,6 +25,7 @@
     "eslint-plugin-react": "^6.10.0",
     "eslint-plugin-standard": "^2.0.1",
     "flow-bin": "^0.41.0",
+    "gh-pages": "^0.12.0",
     "htmlhint": "^0.9.13",
     "react-scripts": "0.9.4",
     "react-test-renderer": "^15.5.4"
@@ -33,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
-  "homepage": "https:/SboRI.github.io/GuitarBuddy"
+  "homepage": "/GuitarBuddy/"
 }

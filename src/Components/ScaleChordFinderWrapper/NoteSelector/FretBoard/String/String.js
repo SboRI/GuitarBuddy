@@ -10,6 +10,7 @@ import './String.css'
 
 type Props = {
     numFrets: number,
+    classNames: string,
     tuning: {
         noteValue: number,
         pitch: number
@@ -24,9 +25,9 @@ type Props = {
     showAllRootNotes: boolean
 }
 
-function String ({numFrets, tuning, selectedNotes, rootNote, onSelectNote, onSelectRoot, StringId, showAllRootNotes, showAllNotes}: Props) {
+function String ({numFrets, classNames, tuning, selectedNotes, rootNote, onSelectNote, onSelectRoot, StringId, showAllRootNotes, showAllNotes}: Props) {
   const notes = []
-  for (var i = 0; i < numFrets; i++) {
+  for (var i = 0; i <= numFrets; i++) {
     notes.push(Notes.transpose(i)(tuning))
   }
   const onClickFret = function (note, isSelected: boolean, isRoot: boolean) {
@@ -53,7 +54,7 @@ function String ({numFrets, tuning, selectedNotes, rootNote, onSelectNote, onSel
     return Notes.equalsValue(note, rootNote.note)
   }
 
-  return <div className={'String'} >
+  return <div className={'String ' + classNames} >
     {_.map(notes, (note) => (<Fret
       note={note}
       onClick={onClickFret}

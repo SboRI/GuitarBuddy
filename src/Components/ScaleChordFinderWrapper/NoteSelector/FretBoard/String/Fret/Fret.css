@@ -57,7 +57,7 @@
     color: black;
 }
 
-.Fret:last-child {
+.Fret:last-of-type {
     border-right-style: solid;
     border-right-color: grey;
     border-right-width: 5px;
