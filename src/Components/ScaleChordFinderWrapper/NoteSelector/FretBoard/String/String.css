@@ -1,8 +1,6 @@
 .String {
     display: flex;
     flex-flow: row;
-    width: 100vw;
-    min-width: 650px;
     /*position: static;
 
     display: table;

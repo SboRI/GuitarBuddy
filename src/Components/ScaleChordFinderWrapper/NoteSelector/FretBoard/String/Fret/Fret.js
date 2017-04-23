@@ -12,7 +12,8 @@ type Props = {
     rootNote: boolean,
     selected: boolean,
     onClick: (note: Note, isSelected: boolean, isRoot: boolean) => void,
-    onDoubleClick: (note: Note, isSelected: boolean) => void
+    onDoubleClick: (note: Note, isSelected: boolean) => void,
+    classNames: string
 }
 
 function Fret ({
@@ -20,9 +21,10 @@ function Fret ({
     rootNote = false,
     selected = false,
     onClick,
-    onDoubleClick
+    onDoubleClick,
+    classNames
 }: Props) {
-  const cssClasses = classnames('Fret',
+  const cssClasses = classnames(classNames, 'Fret',
     {NoteSelected: selected},
     {RootSelected: rootNote}
   )

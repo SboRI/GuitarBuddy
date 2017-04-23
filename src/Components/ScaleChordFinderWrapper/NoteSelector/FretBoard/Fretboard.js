@@ -15,30 +15,36 @@ import Fretmarker from './Fretmarker/Fretmarker.js'
 
 type Props = {
     numFrets: number,
-    tuning: Note[],
+    strings: {baseNote: Note, stringId: string}[],
     rootNote: ?{note: Note, stringID: string},
     selectedNotes: {note: Note, stringID: string}[],
     onSelectNote: (note: Note, stringID: string, isSelected: boolean, isRoot: boolean) => void,
     onSelectRoot: (note: Note, stringID: string, isSelected: boolean)=>void,
     showAllRootNotes: boolean,
-    showAllNotes: boolean
+    showAllNotes: boolean,
 
+    changeTuning: (obj: {note: Note, stringId: string}) => any
 }
 
 class Fretboard extends React.Component {
 
   props: Props
 
+  constructor (props: Props) {
+    super(props)
+    // (this: any).changeTuning = this.changeTuning.bind(this)
+  }
+
   render () {
-    const tuningTopToBottom:Note[] = [...this.props.tuning].reverse()
+    const stringsTopToBottom = [...this.props.strings].reverse()
 
     const classNames = function (baseNote) {
-      return Notes.equalsStrict(baseNote, _.first(tuningTopToBottom))
-    ? 'String-first' : Notes.equalsStrict(baseNote, _.last(tuningTopToBottom))
+      return Notes.equalsStrict(baseNote, _.first(stringsTopToBottom).baseNote)
+    ? 'String-first' : Notes.equalsStrict(baseNote, _.last(stringsTopToBottom).baseNote)
     ? 'String-last' : ''
     }
 
-    const strings = _.map(tuningTopToBottom, (baseNote, index) => {
+    const strings = _.map(stringsTopToBottom, ({baseNote, stringId}, index) => {
       return <String
         numFrets={this.props.numFrets}
         classNames={classNames(baseNote)}
@@ -47,10 +53,11 @@ class Fretboard extends React.Component {
         rootNote={this.props.rootNote}
         onSelectNote={this.props.onSelectNote}
         onSelectRoot={this.props.onSelectRoot}
-        key={'' + baseNote.noteValue + baseNote.pitch}
-        StringId={'' + baseNote.noteValue + baseNote.pitch}
+        key={stringId}
+        StringId={stringId}
         showAllRootNotes={this.props.showAllRootNotes}
-        showAllNotes={this.props.showAllNotes}/>
+        showAllNotes={this.props.showAllNotes}
+        changeTuning={this.props.changeTuning}/>
     })
 
     return <div className={'Fretboard'}>

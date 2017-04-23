@@ -1,0 +1,18 @@
+.TuningSelector {
+    position: relative;
+    flex-grow: 0;
+    /*min-width: 50px;*/
+    user-select: none;
+    cursor: pointer;
+    vertical-align: bottom;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right-style: solid;
+    border-right-color: darkgrey;
+    border-right-width: 2px;
+}
+
+.tuneDown-btn:hover, .tuneUp-btn:hover {
+    background-color: lightgrey
+}

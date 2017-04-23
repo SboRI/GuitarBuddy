@@ -51,6 +51,7 @@ export default class ScaleChordFinderWrapper extends React.Component {
         />
       </div>
       this.setState({scaleDisplayer})
+      console.log(this.state.noteSelectorTuning.map(note => Notes.toString(note)))
     }
   }
 

@@ -1,121 +1,122 @@
 .Fret {
-    color: white;
-    position: relative;
-    flex-grow: 1;
-    /*min-width: 50px;*/
-    min-height: 20px;
-    width: 50px;
-    border-width: 0;
-    border-style: solid;
-    border-right-color: black;
-    border-right-width: 1px;
-    border-top-style: none;
-    border-bottom-style: none;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    user-select: none;
-    cursor: pointer;
-    vertical-align: bottom;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 100ms ease-in-out
+  color: white;
+  position: relative;
+  flex-grow: 1;
+  /*min-width: 50px;*/
+  min-height: 20px;
+  width: 50px;
+  border-width: 0;
+  border-style: solid;
+  border-right-color: black;
+  border-right-width: 1px;
+  border-top-style: none;
+  border-bottom-style: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  user-select: none;
+  cursor: pointer;
+  vertical-align: bottom;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 100ms ease-in-out
 }
 
 .FretText {
-    font-size: calc(7px + 0.6vw);
-    display: inline-block;
-    color: transparent;
+  font-size: calc(7px + 0.6vw);
+  display: inline-block;
+  color: transparent;
 }
 
 .Fret:hover .FretText {
-    background-color: white;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    color: black;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  color: black;
 }
 
 .Fret:hover {
-    color: black
+  color: black
 }
 
-.Fret:first-child {
-    min-width: 70px;
-    border-style: solid;
-    border-right-color: grey;
-    border-right-width: 5px;
-    text-align: right;
-    justify-content: flex-end;
-    color: black;
+.Fret-zeroFret {
+  min-width: 40px;
+  flex-grow: 0;
+  border-style: solid;
+  border-right-color: grey;
+  border-right-width: 5px;
+  text-align: right;
+  justify-content: flex-end;
+  color: black;
 }
 
-.Fret:first-child>.Line {
-    color: transparent;
+.Fret-zeroFret>.Line {
+  color: transparent;
 }
 
-.Fret:first-child>.FretText, .Fret:first-child .NoteSelected>.FretText {
-    color: black;
+.Fret-zeroFret>.FretText, .Fret:first-child .NoteSelected>.FretText {
+  color: black;
 }
 
-.Fret:last-of-type {
-    border-right-style: solid;
-    border-right-color: grey;
-    border-right-width: 5px;
+.Fret-last {
+  border-right-style: solid;
+  border-right-color: grey;
+  border-right-width: 5px;
 }
 
 .Line {
-    color: black;
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    height: 0;
-    width: 100%;
-    border-style: solid;
-    border-width: 1px;
+  color: black;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  height: 0;
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .NoteSelected .FretText {
-    display: inline-block;
-    background-color: lightgrey;
-    color: black;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    transition: 100ms ease-in-out
+  display: inline-block;
+  background-color: lightgrey;
+  color: black;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: 100ms ease-in-out
 }
 
 .NoteSelected {
-    background-color: lightgrey;
-    z-index: 2;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    transition: 100ms ease-in-out
+  background-color: lightgrey;
+  z-index: 2;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: 100ms ease-in-out
 }
 
 .NoteSelected:hover .FretText {
-    background-color: lightgrey;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+  background-color: lightgrey;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .RootSelected {
-    background-color: lightblue;
-    z-index: 2;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    transition: 100ms ease-in-out
+  background-color: lightblue;
+  z-index: 2;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: 100ms ease-in-out
 }
 
 .RootSelected:hover .FretText {
-    background-color: lightblue;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+  background-color: lightblue;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .RootSelected .FretText {
-    display: inline-block;
-    background-color: lightblue;
-    color: black;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    transition: 100ms ease-in-out
+  display: inline-block;
+  background-color: lightblue;
+  color: black;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transition: 100ms ease-in-out
 }

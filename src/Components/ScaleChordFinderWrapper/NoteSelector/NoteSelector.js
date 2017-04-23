@@ -5,6 +5,7 @@ import {Notes} from '../../../Scales/Notes.js'
 import type {Note} from '../../../Scales/Notes.js'
 import Fretboard from './FretBoard/Fretboard.js'
 import _ from 'lodash'
+import uuid from 'uuid/v4.js'
 // import {Scale} from '../../../Scales/Scales.js'
 // import NoteDisplayer from './NoteDisplayer.js'
 
@@ -25,7 +26,8 @@ type State = {
     selectedNotes: NoteWithID[],
     showAllRootNotes: boolean,
     showAllNotes: boolean,
-    tuning: Note[]
+    tuning: Note[],
+    strings: {baseNote: Note, stringId: string}[]
 }
 
 const defaultTuning = _.map(['E2', 'A2', 'D3', 'G3', 'B3', 'E4'], note => Notes.fromString(note))
@@ -45,8 +47,14 @@ class NoteSelector extends React.Component {
       // Determines if selection of a note marks all note swith the same notevalue (tone, e.g. C, D, A#) as selected
       showAllRootNotes: false,
       showAllNotes: false,
-      tuning: defaultTuning
-    }
+      tuning: defaultTuning,
+      strings: _.map(defaultTuning, note => { return {baseNote: note, stringId: uuid()} })
+    };
+
+    // bindings
+    (this: any).onSelectNote = this.onSelectNote.bind(this);
+    (this: any).onSelectRoot = this.onSelectRoot.bind(this);
+    (this: any).onChangeTuning = this.onChangeTuning.bind(this)
   }
 
   isNoteInArray (noteArray: NoteWithID[], {note, stringID}: NoteWithID): boolean {
@@ -104,16 +112,27 @@ class NoteSelector extends React.Component {
     })
   }
 
-  setStateAndPassToParent ({rootNote, selectedNotes, tuning}: {rootNote: ?NoteWithID, selectedNotes: NoteWithID[], tuning?: Note[]}) {
+  onChangeTuning ({note, stringId}: {note: Note, stringId: string}) {
+    const newStrings = _.map(this.state.strings,
+      (string) => {
+        return string.stringId === stringId
+      ? {baseNote: note, stringId}
+    : string
+      })
+    this.setStateAndPassToParent({rootNote: null, selectedNotes: [], strings: newStrings})
+  }
+
+  setStateAndPassToParent ({rootNote, selectedNotes, strings}: {rootNote?: ?NoteWithID, selectedNotes: NoteWithID[], strings?: {baseNote: Note, stringId: string}[]}) {
     this.setState({
       rootNote,
       selectedNotes,
-      tuning: tuning || this.state.tuning
+      tuning: strings ? strings.map(string => string.baseNote) : this.state.tuning,
+      strings: strings || this.state.strings
     },
     this.props.getSelectedNotes({
       rootNote: rootNote ? rootNote.note : null,
       selectedNotes: _.map(selectedNotes, (noteWithID) => noteWithID.note),
-      tuning: this.state.tuning
+      tuning: strings ? strings.map(string => string.baseNote) : this.state.tuning
     })
   )
   }
@@ -121,14 +140,16 @@ class NoteSelector extends React.Component {
   render () {
     return <div>
       <Fretboard
-        tuning={this.state.tuning}
-        numFrets={24}
+        strings={this.state.strings}
+        numFrets={this.state.numFrets}
+        changeTuning={this.onChangeTuning}
         selectedNotes={this.state.selectedNotes}
         rootNote={this.state.rootNote}
-        onSelectNote={this.onSelectNote.bind(this)}
-        onSelectRoot={this.onSelectRoot.bind(this)}
+        onSelectNote={this.onSelectNote}
+        onSelectRoot={this.onSelectRoot}
         showAllRootNotes={this.state.showAllRootNotes}
         showAllNotes={this.state.showAllNotes}
+
       />
 
     </div>
