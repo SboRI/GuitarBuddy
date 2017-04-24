@@ -30,10 +30,9 @@ class Fretboard extends React.Component {
 
   props: Props
 
-  constructor (props: Props) {
-    super(props)
-    // (this: any).changeTuning = this.changeTuning.bind(this)
-  }
+  // constructor (props: Props) {
+  //   super(props)
+  // }
 
   render () {
     const stringsTopToBottom = [...this.props.strings].reverse()
