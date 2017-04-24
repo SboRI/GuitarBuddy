@@ -113,7 +113,7 @@ const scaleGenerator = (function () {
     // },
 
     getScalesFromNotes: function (selectedNotes: Note[], rootNote: ?Note): {root: Note, scale: string}[] {
-      if (selectedNotes.length === 0) {
+      if (!rootNote && selectedNotes.length === 0) {
         return []
       }
 

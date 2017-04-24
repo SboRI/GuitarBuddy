@@ -15,8 +15,8 @@ type State = {
   selectedNotes: Note[],
   selectedRoot: ?Note,
   scaleDisplayDialog: ?React$Element<any>,
-  scaleDisplayer: ?React$Element<any>,
-  noteSelectorTuning: Note[]
+  noteSelectorTuning: Note[],
+  scaleToShow: ?{root: Note, scale: string}
 }
 
 export default class ScaleChordFinderWrapper extends React.Component {
@@ -26,42 +26,27 @@ export default class ScaleChordFinderWrapper extends React.Component {
     super(props);
     (this: any).btnClicked = this.btnClicked.bind(this);
     (this: any).getSelectedNotes = this.getSelectedNotes.bind(this);
-    (this: any).showFullScale = this.showFullScale.bind(this)
+    (this: any).getScaleToShow = this.getScaleToShow.bind(this)
     this.state = {
       selectedNotes: [],
       selectedRoot: null,
       scaleDisplayDialog: null,
-      scaleDisplayer: null,
-      noteSelectorTuning: []
+      noteSelectorTuning: [],
+      scaleToShow: null
     }
   }
 
-  showFullScale ({root, scale}: {root: Note, scale: string}) {
-    console.log({root, scale})
-    const scaleNotes = Scale.getScaleNotesFromName(scale, root)
-    console.log(scaleNotes)
-    if (scaleNotes.length > 0) {
-      const scaleDisplayer = <div> Showing: {Notes.toString(root)} {scale}
-        <NoteDisplayer
-          rootNote={root}
-          selectedNotes={scaleNotes}
-          showAllNotes={true}
-          showAllRootNotes={true}
-          tuning={this.state.noteSelectorTuning}
-        />
-      </div>
-      this.setState({scaleDisplayer})
-      console.log(this.state.noteSelectorTuning.map(note => Notes.toString(note)))
-    }
+  getScaleToShow ({root, scale}: {root: Note, scale: string}) {
+    this.setState((prevState, props) => { return {scaleToShow: {root, scale}} })
   }
 
   generateScaleDisplayDialog () {
-    if (this.state.selectedNotes.length === 0) {
+    if (!this.state.selectedRoot && this.state.selectedNotes.length === 0) {
       this.setState({scaleDisplayDialog: null})
       return
     }
     const scales = Scale.getScalesFromNotes(this.state.selectedNotes, this.state.selectedRoot)
-    const scaleDisplayDialog = <ScaleDisplayDialog scales={scales} passShowScale={this.showFullScale}/>
+    const scaleDisplayDialog = <ScaleDisplayDialog scales={scales} passShowScale={this.getScaleToShow}/>
     this.setState({scaleDisplayDialog})
   }
   btnClicked () {
@@ -75,6 +60,24 @@ export default class ScaleChordFinderWrapper extends React.Component {
       noteSelectorTuning: tuning})
   }
 
+  displaySelectedScale () {
+    if (this.state.scaleToShow) {
+      const root = this.state.scaleToShow.root
+      const scale = this.state.scaleToShow.scale
+      return <div>
+        Showing: {Notes.toString(root)} {scale}
+        <NoteDisplayer
+          rootNote={root}
+          selectedNotes={Scale.getScaleNotesFromName(scale, root)}
+          showAllNotes={true}
+          showAllRootNotes={true}
+          tuning={this.state.noteSelectorTuning}
+        />
+      </div>
+    }
+    return null
+  }
+
   render () {
     return <div className='ScaleChordFinderWrapper'>
       <NoteSelector getSelectedNotes={this.getSelectedNotes}/>
@@ -85,8 +88,8 @@ export default class ScaleChordFinderWrapper extends React.Component {
       </RaisedButton>
 
       {this.state.scaleDisplayDialog}
-      {this.state.scaleDisplayer}
+      {this.displaySelectedScale()}
 
-    </div>
+        </div>
   }
 }

@@ -35,7 +35,8 @@ class NoteDisplayer extends React.Component {
         noteNotInStringRange={(obj: {note: Note, stringID: string}[]) => {}}
         rootNotInStringRange={(obj: {note: Note, stringID: string}) => {}}
         showAllRootNotes={this.props.showAllRootNotes}
-        showAllNotes={this.props.showAllNotes}/>
+        showAllNotes={this.props.showAllNotes}
+        changeTuning={obj => {}}/>
 
     </div>
   }
