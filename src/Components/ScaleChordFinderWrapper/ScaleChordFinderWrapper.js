@@ -8,7 +8,7 @@ import type {Note} from './../../Scales/Notes.js'
 import {Notes} from './../../Scales/Notes.js'
 import {Scale} from './../../Scales/Scales.js'
 import ScaleDisplayDialog from './ScaleDisplayDialog/ScaleDisplayDialog.js'
-// import _ from 'lodash'
+import _ from 'lodash'
 import RaisedButton from 'material-ui/RaisedButton'
 
 type State = {

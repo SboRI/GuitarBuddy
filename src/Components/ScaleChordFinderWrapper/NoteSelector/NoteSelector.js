@@ -1,14 +1,22 @@
 // @flow
 
 import React from 'react'
-import {Notes} from '../../../Scales/Notes.js'
-import type {Note} from '../../../Scales/Notes.js'
-import Fretboard from './FretBoard/Fretboard.js'
+
+// Libraries
 import _ from 'lodash'
 import uuid from 'uuid/v4.js'
+
+// Models/Business logic
+import {Notes} from '../../../Scales/Notes.js'
+import type {Note} from '../../../Scales/Notes.js'
 // import {Scale} from '../../../Scales/Scales.js'
+
+// Components
+import Fretboard from './FretBoard/Fretboard.js'
+import FretboardConfig from './FretboardConfig/FretboardConfig.js'
 // import NoteDisplayer from './NoteDisplayer.js'
 
+// Flow types
 type Props = {
   getSelectedNotes: (obj: {
     rootNote: Note,
@@ -30,6 +38,7 @@ type State = {
     strings: {baseNote: Note, stringId: string}[]
 }
 
+// Defaults
 const defaultTuning = _.map(['E2', 'A2', 'D3', 'G3', 'B3', 'E4'], note => Notes.fromString(note))
 
 class NoteSelector extends React.Component {
@@ -54,7 +63,21 @@ class NoteSelector extends React.Component {
     // bindings
     (this: any).onSelectNote = this.onSelectNote.bind(this);
     (this: any).onSelectRoot = this.onSelectRoot.bind(this);
-    (this: any).onChangeTuning = this.onChangeTuning.bind(this)
+    (this: any).onChangeTuning = this.onChangeTuning.bind(this);
+    (this: any).onChangeStringNumber = this.onChangeStringNumber.bind(this)
+  }
+
+  componentDidUpdate (prevProps: Props, prevState: State) {
+    this.props.getSelectedNotes({
+      rootNote: this.state.rootNote ? this.state.rootNote.note : null,
+      selectedNotes: _.map(this.state.selectedNotes, note => note.note),
+      tuning: this.state.tuning
+    })
+    console.log(_.map(this.state.selectedNotes, note => Notes.toString(note.note)))
+  }
+
+  shouldComponentUpdate (nextProps: Props, nextState: State) {
+    return !(_.isEqual(this.props, nextProps) && _.isEqual(this.state, nextState))
   }
 
   isNoteInArray (noteArray: NoteWithID[], {note, stringID}: NoteWithID): boolean {
@@ -91,7 +114,7 @@ class NoteSelector extends React.Component {
       default:
         break
     }
-    this.setStateAndPassToParent({
+    this.setState({
       selectedNotes,
       rootNote
     })
@@ -106,7 +129,7 @@ class NoteSelector extends React.Component {
     // remove the new root note from the selectedNotes
     selectedNotes = this.removeSelectedNote(selectedNotes, {note: root, stringID})
 
-    this.setStateAndPassToParent({
+    this.setState({
       selectedNotes,
       rootNote: {note: root, stringID}
     })
@@ -119,26 +142,53 @@ class NoteSelector extends React.Component {
       ? {baseNote: note, stringId}
     : string
       })
-    this.setStateAndPassToParent({rootNote: null, selectedNotes: [], strings: newStrings})
+    this.setState({rootNote: null, selectedNotes: [], strings: newStrings, tuning: _.map(newStrings, string => string.baseNote)})
   }
 
-  setStateAndPassToParent ({rootNote, selectedNotes, strings}: {rootNote?: ?NoteWithID, selectedNotes: NoteWithID[], strings?: {baseNote: Note, stringId: string}[]}) {
-    this.setState({
-      rootNote,
-      selectedNotes,
-      tuning: strings ? strings.map(string => string.baseNote) : this.state.tuning,
-      strings: strings || this.state.strings
-    },
-    this.props.getSelectedNotes({
-      rootNote: rootNote ? rootNote.note : null,
-      selectedNotes: _.map(selectedNotes, (noteWithID) => noteWithID.note),
-      tuning: strings ? strings.map(string => string.baseNote) : this.state.tuning
-    })
-  )
+  // setStateAndPassToParent ({rootNote, selectedNotes, strings}: {rootNote?: ?NoteWithID, selectedNotes: NoteWithID[], strings?: {baseNote: Note, stringId: string}[]}) {
+  //   this.setState({
+  //     rootNote,
+  //     selectedNotes,
+  //     tuning: strings ? strings.map(string => string.baseNote) : this.state.tuning,
+  //     strings: strings || this.state.strings
+  //   },
+  //   this.props.getSelectedNotes({
+  //     rootNote: rootNote ? rootNote.note : null,
+  //     selectedNotes: _.map(selectedNotes, (noteWithID) => noteWithID.note),
+  //     tuning: strings ? strings.map(string => string.baseNote) : this.state.tuning
+  //   })
+  //   )
+  // }
+
+  onChangeStringNumber (action: 'INC' | 'DEC'): void {
+    let newState = {}
+    switch (action) {
+      case 'INC':
+        const lowestStringNote = _.head(this.state.strings).baseNote
+        const baseNote = Notes.transpose(-5)(lowestStringNote)
+        const newString = {baseNote, stringId: uuid()}
+        newState = {
+          strings: [newString, ...this.state.strings],
+          tuning: _.map([newString, ...this.state.strings], (string) => string.baseNote)
+        }
+        break
+      case 'DEC':
+        const [stringToRemove, ...remainingStrings] = this.state.strings
+        const removedSelectedNotes = _.filter(this.state.selectedNotes,
+          (note) => note.stringID !== stringToRemove.stringId)
+        newState = {
+          selectedNotes: removedSelectedNotes,
+          strings: remainingStrings,
+          tuning: _.map(remainingStrings, (string) => string.baseNote)
+        }
+        break
+    }
+    this.setState(newState)
   }
 
   render () {
     return <div>
+      <FretboardConfig onIncDec={this.onChangeStringNumber}/>
       <Fretboard
         strings={this.state.strings}
         numFrets={this.state.numFrets}
