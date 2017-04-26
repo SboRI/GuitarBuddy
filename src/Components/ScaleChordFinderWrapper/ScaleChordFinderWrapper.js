@@ -1,16 +1,23 @@
 // @flow
 
 import React from 'react'
+
+// Stylesheet
 import './ScaleChordFinderWrapper.css'
-import NoteSelector from './NoteSelector/NoteSelector.js'
-import NoteDisplayer from './NoteSelector/NoteDisplayer.js'
+
 import type {Note} from './../../Scales/Notes.js'
 import {Notes} from './../../Scales/Notes.js'
 import {Scale} from './../../Scales/Scales.js'
-import ScaleDisplayDialog from './ScaleDisplayDialog/ScaleDisplayDialog.js'
-import _ from 'lodash'
-import RaisedButton from 'material-ui/RaisedButton'
 
+// import _ from 'lodash'
+
+// Components
+import ScaleDisplayDialog from './ScaleDisplayDialog/ScaleDisplayDialog.js'
+import RaisedButton from 'material-ui/RaisedButton'
+import NoteSelector from './NoteSelector/NoteSelector.js'
+import NoteDisplayer from './NoteSelector/NoteDisplayer.js'
+
+// Flow types
 type State = {
   selectedNotes: Note[],
   selectedRoot: ?Note,
