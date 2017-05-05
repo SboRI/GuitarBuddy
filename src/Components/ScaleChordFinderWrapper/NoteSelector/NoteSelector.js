@@ -2,6 +2,9 @@
 
 import React from 'react'
 
+// Stylesheet
+import './NoteSelector.css'
+
 // Libraries
 import _ from 'lodash'
 import uuid from 'uuid/v4.js'
@@ -73,7 +76,6 @@ class NoteSelector extends React.Component {
       selectedNotes: _.map(this.state.selectedNotes, note => note.note),
       tuning: this.state.tuning
     })
-    console.log(_.map(this.state.selectedNotes, note => Notes.toString(note.note)))
   }
 
   shouldComponentUpdate (nextProps: Props, nextState: State) {
@@ -145,21 +147,6 @@ class NoteSelector extends React.Component {
     this.setState({rootNote: null, selectedNotes: [], strings: newStrings, tuning: _.map(newStrings, string => string.baseNote)})
   }
 
-  // setStateAndPassToParent ({rootNote, selectedNotes, strings}: {rootNote?: ?NoteWithID, selectedNotes: NoteWithID[], strings?: {baseNote: Note, stringId: string}[]}) {
-  //   this.setState({
-  //     rootNote,
-  //     selectedNotes,
-  //     tuning: strings ? strings.map(string => string.baseNote) : this.state.tuning,
-  //     strings: strings || this.state.strings
-  //   },
-  //   this.props.getSelectedNotes({
-  //     rootNote: rootNote ? rootNote.note : null,
-  //     selectedNotes: _.map(selectedNotes, (noteWithID) => noteWithID.note),
-  //     tuning: strings ? strings.map(string => string.baseNote) : this.state.tuning
-  //   })
-  //   )
-  // }
-
   onChangeStringNumber (action: 'INC' | 'DEC'): void {
     let newState = {}
     switch (action) {
@@ -182,12 +169,14 @@ class NoteSelector extends React.Component {
           tuning: _.map(remainingStrings, (string) => string.baseNote)
         }
         break
+      default:
+        console.log(Error)
     }
     this.setState(newState)
   }
 
   render () {
-    return <div>
+    return <div className='NoteSelector'>
       <FretboardConfig onIncDec={this.onChangeStringNumber}/>
       <Fretboard
         strings={this.state.strings}

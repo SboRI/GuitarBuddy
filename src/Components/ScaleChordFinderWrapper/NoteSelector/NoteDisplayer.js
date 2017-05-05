@@ -1,6 +1,10 @@
 // @flow
 
 import React from 'react'
+
+// Stylesheet
+import './NoteSelector.css'
+
 // import {Notes} from '../../../Scales/Notes.js'
 import type {Note} from '../../../Scales/Notes.js'
 import Fretboard from './FretBoard/Fretboard.js'
@@ -24,7 +28,7 @@ class NoteDisplayer extends React.Component {
   state: State
 
   render () {
-    return <div>
+    return <div className='NoteDisplayer'>
       <Fretboard
         strings={_.map(this.props.tuning, baseNote => { return {baseNote, stringId: uuid()} })}
         numFrets={24}
