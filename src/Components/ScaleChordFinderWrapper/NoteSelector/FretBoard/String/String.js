@@ -52,6 +52,7 @@ function String ({
     notes.push(Notes.transpose(i)(tuning))
   }
 
+
   // In case Tuning was changed: Check if all selectedNotes for thi string are still in the range of notes it can display
   // do it for the selectedNotes
 

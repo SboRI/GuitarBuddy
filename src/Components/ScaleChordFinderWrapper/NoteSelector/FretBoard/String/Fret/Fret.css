@@ -67,6 +67,7 @@
 .Line {
   color: black;
   position: absolute;
+  left: 0; /*Needed for Firefox*/
   z-index: -1;
   top: 50%;
   height: 0;
@@ -99,7 +100,7 @@
 }
 
 .RootSelected {
-  background-color: lightblue;
+  background-color: red;
   z-index: 2;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -107,14 +108,14 @@
 }
 
 .RootSelected:hover .FretText {
-  background-color: lightblue;
+  background-color: red;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
 
 .RootSelected .FretText {
   display: inline-block;
-  background-color: lightblue;
+  background-color: red;
   color: black;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
