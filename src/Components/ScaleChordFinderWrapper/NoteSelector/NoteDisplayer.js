@@ -34,13 +34,13 @@ class NoteDisplayer extends React.Component {
         numFrets={24}
         selectedNotes={_.map(this.props.selectedNotes, (note) => { return {note: note, stringID: ''} })}
         rootNote={{note: this.props.rootNote, stringID: ''}}
-        onSelectNote={(note: Note, stringID: string, isSelected: boolean, isRoot: boolean) => {}}
-        onSelectRoot={(note: Note, stringID: string, isSelected: boolean) => {}}
+
         noteNotInStringRange={(obj: {note: Note, stringID: string}[]) => {}}
         rootNotInStringRange={(obj: {note: Note, stringID: string}) => {}}
         showAllRootNotes={this.props.showAllRootNotes}
         showAllNotes={this.props.showAllNotes}
-        changeTuning={obj => {}}/>
+        changeTuning={obj => {}}
+        selectableFret={{selectable: false}}/>
 
     </div>
   }

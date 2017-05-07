@@ -1,5 +1,5 @@
 // @flow
-import _ from 'lodash'
+// import _ from 'lodash'
 
 type BeatResolution = 1 | 2 | 4 | 8 | 16
 
@@ -32,11 +32,11 @@ export default class Metronome {
     }
   _lookAheadTime: number
   _lookAheadInterval: number
-  _notifyNextClickScheduled: (obj: {click: number}) => any
+  _notifyNextClickScheduled: (obj: {click: number, type: number}) => any
 
   constructor (bpm: number,
     beatResolution: BeatResolution,
-    notifyNextClickScheduled: ?(obj: {click: number}) => any,
+    notifyNextClickScheduled: ?(obj: {click: number, type: number}) => any,
     settings: {
       lookAheadTime: number,
       lookAheadInterval: number} = {
@@ -65,7 +65,7 @@ export default class Metronome {
       '8': 440,
       '16': 440
     }
-    this._notifyNextClickScheduled = notifyNextClickScheduled || (({click}) => {})
+    this._notifyNextClickScheduled = notifyNextClickScheduled || ((obj: {click: number, type: number}) => {})
 
     // Setup for ClickCounter
     this._clickCount = 0
@@ -100,20 +100,16 @@ export default class Metronome {
   }
 
   _scheduleNextClick () {
-    let i = 1
     if (this.isPlaying) {
       // first call after Play:
       if (!this._scheduledClick) {
-        i = 2
         this._clickCounter.reset()
         const nextClick = this.audioContext.currentTime
         this._setScheduledClickAndCallback(
           this._playOscillator(nextClick, this._clickLength['4'],
             this._clickCounter.get() === 0 ? this._clickFreq['0'] : this._clickFreq['4']), {when: performance.now(), clicktype: this._clickCounter.get()})
         this._clickCounter.next()
-      }
-      // subsequent clicks
-      else if (this._scheduledClick && this._scheduledClick.scheduled < this.audioContext.currentTime) {
+      } else if (this._scheduledClick && this._scheduledClick.scheduled < this.audioContext.currentTime) { // subsequent clicks
         let nextClick = this._scheduledClick.scheduled + this._secondsBetweenClicks(this.beatResolution)
         const nextClickAbs = performance.now() + (nextClick - this.audioContext.currentTime) * 1000
         this._setScheduledClickAndCallback(
@@ -129,7 +125,7 @@ export default class Metronome {
       this._scheduledClick = null
     }
   }
-  _setScheduledClickAndCallback (click: {scheduled: number}, {when, clicktype}) {
+  _setScheduledClickAndCallback (click: {scheduled: number}, {when, clicktype}: {when: number, clicktype: number}) {
     this._scheduledClick = click
     this._notifyNextClickScheduled({click: when, type: clicktype})
   }

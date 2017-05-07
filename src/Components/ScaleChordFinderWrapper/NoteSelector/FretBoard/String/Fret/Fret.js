@@ -1,58 +1,85 @@
 // @flow
 
 import React from 'react'
+
+// Stylesheet
 import './Fret.css'
+
+// Components
+import FretDisplayer from './FretDisplayer/FretDisplayer.js'
+
 import {Notes} from '../../../../../../Scales/Notes.js'
 import type {Note} from '../../../../../../Scales/Notes.js'
 
 import classnames from 'classnames'
 
+export type SelectableFret = {
+      selectable: true,
+      onClick: (note: Note, isSelected: boolean, isRoot: boolean) => void,
+      onDoubleClick: (note: Note, isSelected: boolean) => void
+    } | {
+      selectable: false
+    }
+
 type Props = {
     note: Note,
     rootNote: boolean,
     selected: boolean,
-    onClick: (note: Note, isSelected: boolean, isRoot: boolean) => void,
-    onDoubleClick: (note: Note, isSelected: boolean) => void,
+    selectableFret: SelectableFret,
     classNames: string
 }
 
 export default class Fret extends React.PureComponent {
+  longPress: boolean
+  props: Props
+
   constructor (props: Props) {
     super(props)
     this.longPress = false
   }
 
   cssClasses () {
-    if (this.props.rootNote) Notes.toString(this.props.note)
-    return classnames(this.props.classNames, 'Fret',
+    return classnames(
+      this.props.classNames,
+      'Fret',
+      {FretSelectable: this.props.selectableFret.selectable},
       {NoteSelected: this.props.selected},
       {RootSelected: this.props.rootNote}
     )
   }
 
   render () {
-    return <div
-    className={this.cssClasses()}
-    onClick={() => this.props.onClick(this.props.note, this.props.selected, this.props.rootNote)}
-    onDoubleClick={() => {
-      console.log('double onClick')
-      this.props.onDoubleClick(this.props.note, this.props.selected)
-    }}
-    onTouchStart={() => {
-      this.longPress = false
-      console.log('touchSTart')
-      setTimeout(() => this.longPress = true, 200)
-    }}
-    onTouchEnd={() => {
-      console.log('Touchend' + this.longPress)
-      this.longPress
-      ? this.props.onDoubleClick(this.props.note, this.props.selected)
-      : null
-    }}>
+    return this.props.selectableFret.selectable
+      ? <div
+        className={this.cssClasses()}
+        onClick={() => {
+          this.props.selectableFret.onClick(this.props.note, this.props.selected, this.props.rootNote)
+        }}
+        onDoubleClick={() => {
+          this.props.selectableFret.onDoubleClick(this.props.note, this.props.selected)
+        }}
+        onTouchStart={() => {
+          this.props.selectableFret.onClick(this.props.note, this.props.selected, this.props.rootNote)
+          this.longPress = true
+          setTimeout(() => {
+            if (this.longPress) {
+              this.props.selectableFret.onDoubleClick(this.props.note, this.props.selected)
+            }
+          }, 300)
+        }}
 
-    <div className={'Line'}> </div>
-    <div className={'FretText'}>{Notes.toString(this.props.note)}</div>
-  </div>
+        onTouchEnd={(e) => {
+          e.preventDefault()
+          this.longPress = false
+        }}
+      >
+        <FretDisplayer fretText={Notes.toString(this.props.note)}/>
+      </div>
+      : <div
+        className={this.cssClasses()}
+        >
+        <FretDisplayer fretText={Notes.toString(this.props.note)}/>
+      </div>
   }
 }
 

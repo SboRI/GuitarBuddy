@@ -100,7 +100,6 @@ class NoteSelector extends React.Component {
   }
 
   onSelectNote (note: Note, stringID: string, isSelected: boolean, isRoot: boolean) {
-    console.log('note selected')
     let rootNote = this.state.rootNote
     let selectedNotes = this.state.selectedNotes
     switch (true) {
@@ -124,7 +123,6 @@ class NoteSelector extends React.Component {
   }
 
   onSelectRoot (root: Note, stringID: string, isSelected: boolean) {
-    console.log('onSelectRoot')
     // remove the old root note from the selectedNotes
     let selectedNotes = this.state.rootNote
       ? this.removeSelectedNote(this.state.selectedNotes, this.state.rootNote)
@@ -178,7 +176,6 @@ class NoteSelector extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     return <div className='NoteSelector'>
       <FretboardConfig onIncDec={this.onChangeStringNumber}/>
       <Fretboard
@@ -187,10 +184,13 @@ class NoteSelector extends React.Component {
         changeTuning={this.onChangeTuning}
         selectedNotes={this.state.selectedNotes}
         rootNote={this.state.rootNote}
-        onSelectNote={this.onSelectNote}
-        onSelectRoot={this.onSelectRoot}
         showAllRootNotes={this.state.showAllRootNotes}
         showAllNotes={this.state.showAllNotes}
+        selectableFret={{
+          selectable: true,
+          onClick: this.onSelectNote,
+          onDoubleClick: this.onSelectRoot
+        }}
 
       />
 

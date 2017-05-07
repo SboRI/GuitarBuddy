@@ -1,4 +1,4 @@
-.TuningSelector {
+.TuningSelector, .TuningSelectorDummy {
     position: relative;
     flex-grow: 0;
     /*min-width: 50px;*/
@@ -11,6 +11,14 @@
     border-right-style: solid;
     border-right-color: darkgrey;
     border-right-width: 2px;
+}
+.TuningSelectorDummy{
+    border-color: transparent;
+    color: transparent;
+    cursor: default
+}
+.btnDummy{
+    color: transparent
 }
 
 .tuneDown-btn:hover, .tuneUp-btn:hover {

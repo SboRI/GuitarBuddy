@@ -13,13 +13,16 @@
   border-bottom-style: none;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  user-select: none;
-  cursor: pointer;
   vertical-align: bottom;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 100ms ease-in-out
+  transition: 100ms ease-in-out;
+}
+
+.FretSelectable{
+  cursor: pointer;
+  user-select: none;
 }
 
 .FretText {
@@ -50,11 +53,11 @@
   color: black;
 }
 
-.Fret-zeroFret>.Line {
+.Fret-zeroFret>.FretDisplayer>.Line {
   color: transparent;
 }
 
-.Fret-zeroFret>.FretText, .Fret:first-child .NoteSelected>.FretText {
+.Fret-zeroFret>.FretDisplayer>.FretText, .Fret:first-child .NoteSelected>.FretDisplayer>.FretText {
   color: black;
 }
 
@@ -120,4 +123,9 @@
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   transition: 100ms ease-in-out
+}
+
+.FretNoSelect {
+    
+    -webkit-tap-highlight-color:  rgba(0, 0, 0, 0); 
 }

@@ -14,16 +14,21 @@ import String from './String/String.js'
 import Fretmarker from './Fretmarker/Fretmarker.js'
 
 type Props = {
+
     numFrets: number,
     strings: {baseNote: Note, stringId: string}[],
     rootNote: ?{note: Note, stringID: string},
-    selectedNotes: {note: Note, stringID: string}[],
-    onSelectNote: (note: Note, stringID: string, isSelected: boolean, isRoot: boolean) => void,
-    onSelectRoot: (note: Note, stringID: string, isSelected: boolean)=>void,
     showAllRootNotes: boolean,
     showAllNotes: boolean,
-
-    changeTuning: (obj: {note: Note, stringId: string}) => any
+    changeTuning: (obj: {note: Note, stringId: string}) => any,
+    selectedNotes: {note: Note, stringID: string}[],
+    selectableFret: {
+      selectable: true,
+      onClick: (note: Note, stringID: string, isSelected: boolean, isRoot: boolean) => void,
+      onDoubleClick: (root: Note, stringID: string, isSelected: boolean) => void
+    } | {
+      selectable: false
+    }
 }
 
 class Fretboard extends React.Component {
@@ -50,8 +55,7 @@ class Fretboard extends React.Component {
         tuning={baseNote}
         selectedNotes={this.props.selectedNotes}
         rootNote={this.props.rootNote}
-        onSelectNote={this.props.onSelectNote}
-        onSelectRoot={this.props.onSelectRoot}
+        selectableFret={this.props.selectableFret}
         key={stringId}
         StringId={stringId}
         showAllRootNotes={this.props.showAllRootNotes}
