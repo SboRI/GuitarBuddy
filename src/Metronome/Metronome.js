@@ -132,10 +132,12 @@ export default class Metronome {
 
   _playOscillator (start: number, length: number, freq: number) {
     let osc = this.audioContext.createOscillator()
+    osc.type = 'square'
     osc.connect(this.audioContext.destination)
     osc.frequency.value = freq
     osc.start(start)
-    osc.stop(start + length)
+    osc.stop(start + 0.005)
+    // osc.stop(start + length)
 
     return {scheduled: start}
   }

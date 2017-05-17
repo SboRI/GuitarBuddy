@@ -99,7 +99,7 @@ export default function String ({
         ? _.map(notes, (note, index, collection) => (<Fret
         note={note}
         selectableFret={{
-          selectable: selectableFret.selectable,
+          selectable: true,
           onClick: onClickFret,
           onDoubleClick: onDoubleClickRoot
         }}

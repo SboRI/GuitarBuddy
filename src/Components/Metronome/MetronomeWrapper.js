@@ -59,7 +59,7 @@ export default class MetronomeWrapper extends React.Component {
   }
 
   metronomeCallback ({click, type}: {click: number}) {
-    setTimeout(() => this.flashMetronomeLight(type == 0 ? 'green' : 'red'), click - performance.now())
+    setTimeout(() => this.flashMetronomeLight(parseInt(type, 10) === 0 ? 'green' : 'red'), click - performance.now())
   }
 
   // setMetronomeSetting (res) {
@@ -88,9 +88,9 @@ export default class MetronomeWrapper extends React.Component {
           return (
            <div><input
             type='radio'
-            value = {res}
+            value={res}
             checked={res === this.state.beatResolution}
-            onChange={(e) => this.setMetronomeRes(parseInt(e.target.value))}
+            onChange={(e) => this.setMetronomeRes(parseInt(e.target.value, 10))}
             /> {res}</div>)
         }
             )}

@@ -5,11 +5,11 @@ import React from 'react'
 // Stylesheet
 import './ScaleChordFinderWrapper.css'
 
-import type {Note} from './../../Scales/Notes.js'
 import {Notes} from './../../Scales/Notes.js'
 import {Scale} from './../../Scales/Scales.js'
+import Chords from './../../Scales/Chords.js'
 
-// import _ from 'lodash'
+import _ from 'lodash'
 
 // Components
 import ScaleDisplayDialog from './ScaleDisplayDialog/ScaleDisplayDialog.js'
@@ -18,12 +18,16 @@ import NoteSelector from './NoteSelector/NoteSelector.js'
 import NoteDisplayer from './NoteSelector/NoteDisplayer.js'
 
 // Flow types
+
+import type {Note} from './../../Scales/Notes.js'
+
 type State = {
   selectedNotes: Note[],
   selectedRoot: ?Note,
   scaleDisplayDialog: ?React$Element<any>,
   noteSelectorTuning: Note[],
-  scaleToShow: ?{root: Note, scale: string}
+  scaleToShow: ?{root: Note, scale: string},
+  chordToShow: []
 }
 
 export default class ScaleChordFinderWrapper extends React.Component {
@@ -33,13 +37,15 @@ export default class ScaleChordFinderWrapper extends React.Component {
     super(props);
     (this: any).btnClicked = this.btnClicked.bind(this);
     (this: any).getSelectedNotes = this.getSelectedNotes.bind(this);
-    (this: any).getScaleToShow = this.getScaleToShow.bind(this)
+    (this: any).getScaleToShow = this.getScaleToShow.bind(this);
+    (this: any).searchChords = this.searchChords.bind(this)
     this.state = {
       selectedNotes: [],
       selectedRoot: null,
       scaleDisplayDialog: null,
       noteSelectorTuning: [],
-      scaleToShow: null
+      scaleToShow: null,
+      chordToShow: []
     }
   }
 
@@ -85,6 +91,11 @@ export default class ScaleChordFinderWrapper extends React.Component {
     return null
   }
 
+  searchChords () {
+    this.setState({chordToShow: Chords.findChord({notes: this.state.selectedNotes, root: this.state.selectedRoot})})
+    console.log(Chords.findChord({notes: this.state.selectedNotes, root: this.state.selectedRoot}))
+  }
+
   render () {
     return <div className='ScaleChordFinderWrapper'>
       <NoteSelector getSelectedNotes={this.getSelectedNotes}/>
@@ -93,9 +104,16 @@ export default class ScaleChordFinderWrapper extends React.Component {
         className='ScaleChordFinderWrapper-Btn'>
         Search Scales
       </RaisedButton>
+      <div/>
+      <RaisedButton
+        onClick={this.searchChords}
+        className='ScaleChordFinderWrapper-Btn-searchChords'>
+        Search Chords
+      </RaisedButton>
 
       {this.state.scaleDisplayDialog}
       {this.displaySelectedScale()}
+      {this.state.chordToShow.length > 0 ? _.map(this.state.chordToShow, chords => <div> {chords.chord.name} </div>) : null}
 
         </div>
   }

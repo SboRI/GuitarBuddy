@@ -22,7 +22,7 @@ import FretboardConfig from './FretboardConfig/FretboardConfig.js'
 // Flow types
 type Props = {
   getSelectedNotes: (obj: {
-    rootNote: Note,
+    rootNote: ?Note,
     selectedNotes: Note[],
     tuning: Note[]
   }) => any,

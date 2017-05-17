@@ -108,6 +108,19 @@ const Notes = (function () {
         notes.push(Notes.create(i, pitch))
       }
       return notes
+    },
+
+    findInterval: function (from: Note, to: Note): number {
+      switch (true) {
+        case (from.noteValue <= to.noteValue):
+          return to.noteValue - from.noteValue
+
+        case (from.noteValue > to.noteValue):
+          return to.noteValue - from.noteValue + 12
+
+        default:
+          throw new Error('findInterval should not reach default case')
+      }
     }
 
   }
