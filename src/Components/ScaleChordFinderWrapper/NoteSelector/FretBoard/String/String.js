@@ -86,6 +86,12 @@ export default function String ({
     changeTuning({note, stringId: StringId})
   }
 
+  const getScaleDegreeInfo = function (fretNote) {
+    const note = _.filter(selectedNotes, (sel) => Notes.equalsValue(sel.note, fretNote))[0]
+    return note && note.hasOwnProperty('interval') ? note.interval : null
+  }
+
+  console.log(selectedNotes)
   return <div
     className={'String ' + classNames}>
       {selectableFret.selectable
@@ -117,6 +123,7 @@ export default function String ({
         note={note}
         selected={isNoteSelected(note)}
         rootNote={isRootSelected(note)}
+        scaleDegree={showAllNotes ? getScaleDegreeInfo(note) : null}
         key={'' + note.noteValue + note.pitch}
         classNames={index === 0
           ? 'Fret-zeroFret'

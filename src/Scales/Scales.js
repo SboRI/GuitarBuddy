@@ -59,16 +59,20 @@ const scaleGenerator = (function () {
   //   return 'MathaFUCKA'
   // }
 
-  const scaleIntervalsToNotes = function (intervals: number[], root: Note): Note[] {
-    const intervalsToNoteValues = function (intervals) {
-      const intervalNotes = [0]
-      for (let i = 0; i < intervals.length; i++) {
-        intervalNotes.push(intervalNotes[intervalNotes.length - 1] + intervals[i])
-      }
-      return intervalNotes
+  const toIntegerIntervals = function (relativeIntervals: number[]): number[] {
+    const intervalNotes = [0]
+    for (let i = 0; i < relativeIntervals.length; i++) {
+      intervalNotes.push(intervalNotes[intervalNotes.length - 1] + relativeIntervals[i])
     }
+    return intervalNotes
+  }
 
-    return _.map(intervalsToNoteValues(intervals), (relNote: number) => Notes.transpose(relNote)(root))
+  const scaleIntervalsToNotes = function (intervals: number[], root: Note): Note[] {
+    return _.map(toIntegerIntervals(intervals), (relNote: number) => Notes.transpose(relNote)(root))
+  }
+
+  const scaleIntervalsToNoteIntervals = function (intervals: number[], root: Note) {
+    return _.map(toIntegerIntervals(intervals), (relNote: number) => Object.assign({note: Notes.transpose(relNote)(root)}, {interval: Notes.fromIntegerIntervals(relNote)}))
   }
 
   const areAllNotesInScale = function (notes: Note[], scale: Note[]) {
@@ -145,6 +149,11 @@ const scaleGenerator = (function () {
 
       const intervals = _.first(_.filter(scaleIntervals, (scale) => scale.name === name)).intervals
       return scaleIntervalsToNotes(intervals, root)
+    },
+
+    getScaleNotesWithIntervalsFromName: function (name: string, root: Note) {
+      const intervals = _.first(_.filter(scaleIntervals, (scale) => scale.name === name)).intervals
+      return scaleIntervalsToNoteIntervals(intervals, root)
     }
   }
 }())

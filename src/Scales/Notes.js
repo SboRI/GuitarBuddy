@@ -8,6 +8,22 @@ const Notes = (function () {
   const noteValues = [['C', 1], ['D', 3], ['E', 5], ['F', 6], ['G', 8], ['A', 10], ['B', 12]]
   const noteNames = _.map(noteValues, (noteValue) => _.reverse([...noteValue]))
 
+  const integerIntervals = {
+    '0': { name: 'prime', quality: 'perfect', short: 'P1', roman: 'I', number: 1, diatonFunc: 'tonic' },
+    '1': { name: 'second', quality: 'minor', short: 'm2', roman: 'II', number: 2, diatonFunc: 'supertonic' },
+    '2': { name: 'second', quality: 'major', short: 'M2', roman: 'II', number: 2, diatonFunc: '' },
+    '3': { name: 'third', quality: 'minor', short: 'm3', roman: 'III', number: 3, diatonFunc: '' },
+    '4': { name: 'third', quality: 'major', short: 'M3', roman: 'III', number: 3, diatonFunc: '' },
+    '5': { name: 'fourth', quality: 'perfect', short: 'P4', roman: 'IV', number: 4, diatonFunc: '' },
+    '6': { name: 'tritone', quality: 'augemented/diminished', short: 'TT', roman: 'aIV/dV', number: 5, diatonFunc: '' },
+    '7': { name: 'fifth', quality: 'perfect', short: 'P5', roman: 'V', number: 5, diatonFunc: '' },
+    '8': { name: 'sixth', quality: 'minor', short: 'm6', roman: 'VI', number: 6, diatonFunc: '' },
+    '9': { name: 'sixth', quality: 'major', short: 'M6', roman: 'VI', number: 6, diatonFunc: '' },
+    '10': { name: 'seventh', quality: 'minor', short: 'm7', roman: 'VII', number: 7, diatonFunc: '' },
+    '11': { name: 'seventh', quality: 'major', short: 'M7', roman: 'VII', number: 7, diatonFunc: '' },
+    '12': { name: 'octave', quality: 'perfect', short: 'P8', roman: 'I', number: 8, diatonFunc: '' }
+  }
+
   type NoteLiteral = {fullTone: string; accidentals: string[], pitch: number}
 
   return {
@@ -108,6 +124,13 @@ const Notes = (function () {
         notes.push(Notes.create(i, pitch))
       }
       return notes
+    },
+
+    fromIntegerIntervals: function (integerInterval: number) {
+      if (integerInterval > 12) {
+        integerInterval = integerInterval % 12
+      }
+      return integerIntervals[integerInterval.toString()]
     },
 
     findInterval: function (from: Note, to: Note): number {

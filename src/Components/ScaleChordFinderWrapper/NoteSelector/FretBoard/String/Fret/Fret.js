@@ -43,8 +43,9 @@ export default class Fret extends React.PureComponent {
       this.props.classNames,
       'Fret',
       {FretSelectable: this.props.selectableFret.selectable},
-      {NoteSelected: this.props.selected},
-      {RootSelected: this.props.rootNote}
+      {NoteSelected: this.props.selected || this.props.rootNote},
+      {Root: this.props.rootNote},
+      this.props.scaleDegree ? this.props.scaleDegree.name : ''
     )
   }
 

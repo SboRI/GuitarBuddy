@@ -16,7 +16,8 @@ type Props = {
     selectedNotes: Note[],
     tuning: Note[],
     showAllNotes: boolean,
-    showAllRootNotes: boolean
+    showAllRootNotes: boolean,
+    selectedNotesWithIntervals: []
 }
 
 type State = {
@@ -28,19 +29,19 @@ class NoteDisplayer extends React.Component {
   state: State
 
   render () {
+    const selectedNotes = _.map(this.props.selectedNotesWithIntervals, (note) => { return {...note, stringID: ''} })
+
     return <div className='NoteDisplayer'>
       <Fretboard
         strings={_.map(this.props.tuning, baseNote => { return {baseNote, stringId: uuid()} })}
         numFrets={24}
-        selectedNotes={_.map(this.props.selectedNotes, (note) => { return {note: note, stringID: ''} })}
+        selectedNotes={selectedNotes}
         rootNote={{note: this.props.rootNote, stringID: ''}}
-
-        noteNotInStringRange={(obj: {note: Note, stringID: string}[]) => {}}
-        rootNotInStringRange={(obj: {note: Note, stringID: string}) => {}}
         showAllRootNotes={this.props.showAllRootNotes}
         showAllNotes={this.props.showAllNotes}
         changeTuning={obj => {}}
-        selectableFret={{selectable: false}}/>
+        selectableFret={{selectable: false}}
+        selectedNotesWithIntervals= {selectedNotes}/>
 
     </div>
   }

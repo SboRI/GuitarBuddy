@@ -82,6 +82,7 @@ export default class ScaleChordFinderWrapper extends React.Component {
         <NoteDisplayer
           rootNote={root}
           selectedNotes={Scale.getScaleNotesFromName(scale, root)}
+          selectedNotesWithIntervals={Scale.getScaleNotesWithIntervalsFromName(scale, root)}
           showAllNotes={true}
           showAllRootNotes={true}
           tuning={this.state.noteSelectorTuning}
