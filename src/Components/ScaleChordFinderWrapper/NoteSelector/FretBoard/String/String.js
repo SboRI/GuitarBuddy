@@ -91,7 +91,6 @@ export default function String ({
     return note && note.hasOwnProperty('interval') ? note.interval : null
   }
 
-  console.log(selectedNotes)
   return <div
     className={'String ' + classNames}>
       {selectableFret.selectable

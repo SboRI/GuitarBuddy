@@ -32,14 +32,36 @@ const Chords = (function () {
     return result
   }
 
+  const _findChord = function ({notes, root}: {notes: Note[], root: Note}) {
+    const unsrtIntvls = _.map([root, ...notes], note => Notes.findInterval(root, note))
+    const intervals = _.sortBy(unsrtIntvls, intvl => intvl)
+
+    const chordResultsAny = _.map(chords, chord => { return { ...containsIntervals(chord.intervals, intervals), chord } })
+    const chordResults = _.filter(chordResultsAny, chord => chord.doesContain)
+
+    return _.map(
+        chordResults,
+        chord => Object.assign({}, {root, chord: chord.chord, isExactMatch: chord.isExactMatch}))
+  }
+
   return {
     findChord: function ({notes, root}: {notes: Note[], root: Note}) {
-      const unsrtIntvls = _.map(notes, note => Notes.findInterval(root, note))
-      const intervals = _.sortBy(unsrtIntvls, intvl => intvl)
-      console.log(intervals)
+      if (root) {
+        return _findChord({notes, root})
+      }
 
-      const chordResults = _.map(chords, chord => { return { ...containsIntervals(chord.intervals, intervals), chord } })
-      return _.filter(chordResults, chordRes => chordRes.doesContain)
+      if (!root) {
+        const uniqueNotes = _.uniqWith(notes, Notes.equalsValue)
+        const chordPermutations = _.map(uniqueNotes,
+          (note) => {
+            return {
+              root: note,
+              notes: _.filter(uniqueNotes,
+                el => !Notes.equalsValue(el, note))
+            }
+          })
+        return _.flatten(_.map(chordPermutations, perm => _findChord(perm)))
+      }
     }
   }
 }())

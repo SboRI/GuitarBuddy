@@ -114,7 +114,7 @@ export default class ScaleChordFinderWrapper extends React.Component {
 
       {this.state.scaleDisplayDialog}
       {this.displaySelectedScale()}
-      {this.state.chordToShow.length > 0 ? _.map(this.state.chordToShow, chords => <div> {chords.chord.name} </div>) : null}
+      {this.state.chordToShow.length > 0 ? _.map(this.state.chordToShow, chords => <div> {Notes.toString(chords.root)}-{chords.chord.name} </div>) : null}
 
         </div>
   }
