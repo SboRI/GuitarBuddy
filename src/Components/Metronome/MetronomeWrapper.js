@@ -7,11 +7,16 @@ import _ from 'lodash'
 
 // Components
 import Metronome from './../../Metronome/Metronome.js'
+import type {BeatResolution} from './../../Metronome/Metronome.js'
 import RaisedButton from 'material-ui/RaisedButton'
 
 type State = {
   metronome: Metronome,
-  isMetronomePlaying: boolean
+  isMetronomePlaying: boolean,
+  bpm: number,
+  beatResolutions: BeatResolution[],
+  beatResolution: BeatResolution,
+  metronomeLight: {backgroundColor: string}
 }
 
 type Props = {}
@@ -23,7 +28,8 @@ export default class MetronomeWrapper extends React.Component {
     super(props);
     (this: any).playMetronome = this.playMetronome.bind(this);
     (this: any).metronomeCallback = this.metronomeCallback.bind(this);
-    (this: any).flashMetronomeLight = this.flashMetronomeLight.bind(this)
+    (this: any).flashMetronomeLight = this.flashMetronomeLight.bind(this);
+    (this: any).setBeatResolution = this.setBeatResolution.bind(this)
 
     const metronome = new Metronome(120, 4, this.metronomeCallback)
     this.state = {
@@ -50,15 +56,15 @@ export default class MetronomeWrapper extends React.Component {
     () => this.state.metronome.play(this.state.isMetronomePlaying))
   }
 
-  setMetronomeBpm (bpm) {
+  setMetronomeBpm (bpm: number) {
     this.setState((old, props) => { return {bpm} }, () => this.state.metronome.setTempo({bpm: this.state.bpm, beatResolution: this.state.beatResolution}))
   }
 
-  setMetronomeRes (res) {
+  setMetronomeRes (res: BeatResolution) {
     this.setState((old, props) => { return {beatResolution: res} }, () => this.state.metronome.setTempo({bpm: this.state.bpm, beatResolution: this.state.beatResolution}))
   }
 
-  metronomeCallback ({click, type}: {click: number}) {
+  metronomeCallback ({click, type}: {click: number, type: number}) {
     setTimeout(() => this.flashMetronomeLight(parseInt(type, 10) === 0 ? 'green' : 'red'), click - performance.now())
   }
 
@@ -67,15 +73,20 @@ export default class MetronomeWrapper extends React.Component {
   // }
 
   flashMetronomeLight (color: string) {
-    const metronomeHighlight = Object.assign({}, this.state.metronomeLight)
+    const metronomeHighlight = {...this.state.metronomeLight}
     metronomeHighlight.backgroundColor = color
-    const metronomeBlack = Object.assign({}, this.state.metronomeLight)
+    const metronomeBlack = {...this.state.metronomeLight}
     metronomeBlack.backgroundColor = 'black'
     this.setState({metronomeLight: metronomeHighlight})
     setTimeout(() => {
       this.setState({metronomeLight: metronomeBlack})
-    },
-     200)
+    }, 200)
+  }
+
+  setBeatResolution (res: number) {
+    if (_.some(_.map(this.state.beatResolutions, resolution => resolution === res))) {
+      this.setMetronomeRes(res)
+    }
   }
 
   render () {
@@ -86,12 +97,15 @@ export default class MetronomeWrapper extends React.Component {
       <div> beatResolution:
         <form>{_.map(this.state.beatResolutions, res => {
           return (
-           <div><input
-            type='radio'
-            value={res}
-            checked={res === this.state.beatResolution}
-            onChange={(e) => this.setMetronomeRes(parseInt(e.target.value, 10))}
-            /> {res}</div>)
+            <div>
+              <input
+              type='radio'
+              value={res}
+              checked={res === this.state.beatResolution}
+              onChange={(e) => this.setBeatResolution(e.target.value) }
+              />
+                {res}
+              </div>)
         }
             )}
         </form>
