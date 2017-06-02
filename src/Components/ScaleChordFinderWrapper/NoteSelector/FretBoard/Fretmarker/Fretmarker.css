@@ -1,8 +1,7 @@
 .Fretmarker {
   display: flex;
-  flex-flow: row;
-  width: 100vw;
-  min-width: 650px;
+    flex-flow: row;
+    flex:none;
   /*position: static;
 
     display: table;
@@ -55,6 +54,4 @@
   background-color: black;
 }
 
-.TuningSelectorDummy {
-  width: 48px
-}
+
