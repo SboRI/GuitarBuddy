@@ -4,6 +4,12 @@ import {Notes} from './Notes.js'
 // Flow Types
 import type {Note} from './Notes.js'
 
+type Chord = {
+  root: Note,
+  chord: {name: string, intervals: number[]},
+  notesMissing: Note[]
+}
+
 const Chords = (function () {
   const chord = function (name: string, intervals: number[]) {
     return {name, intervals}
@@ -17,7 +23,7 @@ const Chords = (function () {
   ]
 
   const containsIntervals = function (container: number[], testIntervals: number[]): {doesContain: false} | {
-      doesContain: true, isExactMatch: boolean} {
+      doesContain: true, isExactMatch: true} | {doesContain: true, isExactMatch: false, intervalsMissing: number[]} {
     let result = {}
     if (_.difference(testIntervals, container).length !== 0) {
       result.doesContain = false
@@ -27,6 +33,7 @@ const Chords = (function () {
         result.isExactMatch = true
       } else {
         result.isExactMatch = false
+        result.intervalsMissing = _.difference(container, testIntervals)
       }
     }
     return result
@@ -41,11 +48,14 @@ const Chords = (function () {
 
     return _.map(
         chordResults,
-        chord => Object.assign({}, {root, chord: chord.chord, isExactMatch: chord.isExactMatch}))
+        chord => Object.assign({}, {
+          root,
+          chord: chord.chord,
+          notesMissing: _.map(chord.intervalsMissing, interval => Notes.transpose(interval)(root))}))
   }
 
   return {
-    findChord: function ({notes, root}: {notes: Note[], root: Note}) {
+    findChord: function ({notes, root}: {notes: Note[], root: Note}): Chord[] {
       if (root) {
         return _findChord({notes, root})
       }
@@ -67,3 +77,4 @@ const Chords = (function () {
 }())
 
 export default Chords
+export type {Chord}

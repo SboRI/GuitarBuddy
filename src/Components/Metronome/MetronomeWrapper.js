@@ -61,6 +61,7 @@ export default class MetronomeWrapper extends React.Component {
   }
 
   setMetronomeRes (res: BeatResolution) {
+    console.log('hahahaha')
     this.setState((old, props) => { return {beatResolution: res} }, () => this.state.metronome.setTempo({bpm: this.state.bpm, beatResolution: this.state.beatResolution}))
   }
 
@@ -84,9 +85,8 @@ export default class MetronomeWrapper extends React.Component {
   }
 
   setBeatResolution (res: number) {
-    if (_.some(_.map(this.state.beatResolutions, resolution => resolution === res))) {
-      this.setMetronomeRes(res)
-    }
+    this.setMetronomeRes(_.first(_.filter(this.state.beatResolutions, ress => ress === res)) ||
+                          _.first(this.state.beatResolutions))
   }
 
   render () {
@@ -102,7 +102,7 @@ export default class MetronomeWrapper extends React.Component {
               type='radio'
               value={res}
               checked={res === this.state.beatResolution}
-              onChange={(e) => this.setBeatResolution(e.target.value) }
+              onChange={(e) => this.setBeatResolution(parseInt(e.target.value, 10)) }
               />
                 {res}
               </div>)
