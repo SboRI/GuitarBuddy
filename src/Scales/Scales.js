@@ -108,19 +108,6 @@ const scaleGenerator = (function () {
 
   return {
 
-    // // scale: function (scaleName: string, tonic: Note) {
-    // //   const scaleNotes = _.flow(
-    // //     scaleInterval,
-    // //     intervalsToNoteValues
-    // //   )(scaleName)
-    //   return scaleNotes.map((notevalue) =>
-    //     _.flow(
-    //       Notes.fromString,
-    //       Notes.transpose(notevalue)
-    //     )(tonic)
-    //   )
-    // },
-
     getScalesFromNotes: function (selectedNotes: Note[], rootNote: ?Note): {root: Note, scale: string}[] {
       if (!rootNote && selectedNotes.length === 0) {
         return []
