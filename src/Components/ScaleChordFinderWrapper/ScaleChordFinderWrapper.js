@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react';
+import * as React from 'react'
 
 // Stylesheet
 import './ScaleChordFinderWrapper.css'
@@ -14,7 +14,6 @@ import _ from 'lodash'
 
 // Components
 import ScaleDisplayDialog from './ScaleDisplayDialog/ScaleDisplayDialog.js'
-import RaisedButton from 'material-ui/RaisedButton'
 import NoteSelector from './NoteSelector/NoteSelector.js'
 import NoteDisplayer from './NoteSelector/NoteDisplayer.js'
 
@@ -99,17 +98,17 @@ export default class ScaleChordFinderWrapper extends React.Component<any, State>
   render () {
     return <div className='ScaleChordFinderWrapper'>
       <NoteSelector getSelectedNotes={this.getSelectedNotes}/>
-      <RaisedButton
+      <button
         onClick={this.btnClicked}
         className='ScaleChordFinderWrapper-Btn'>
         Search Scales
-      </RaisedButton>
+      </button>
       <div/>
-      <RaisedButton
+      <button
         onClick={this.searchChords}
         className='ScaleChordFinderWrapper-Btn-searchChords'>
         Search Chords
-      </RaisedButton>
+      </button>
 
       {this.state.scaleDisplayDialog}
       {this.displaySelectedScale()}

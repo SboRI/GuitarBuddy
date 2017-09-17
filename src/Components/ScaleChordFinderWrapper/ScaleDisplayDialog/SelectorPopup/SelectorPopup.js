@@ -1,9 +1,8 @@
-import * as React from 'react';
+import * as React from 'react'
 
 import Popover from 'material-ui/Popover'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
-import FlatButton from 'material-ui/FlatButton'
 
 type State = {
   isPopoverOpen: boolean,
@@ -40,12 +39,12 @@ export default class SelectorPopup extends React.Component<Props, State> {
 
   render () {
     return <div>
-      <FlatButton >
+      <button >
         <div className='inline-flex' onClick={this.handleClick}>
           <i className="material-icons Scale-dropdown-icon">menu</i>
           {this.props.note.name}
         </div>
-      </FlatButton>
+      </button>
       <Popover open={this.state.isPopoverOpen}
         anchorEl={this.state.anchorEl}
         onRequestClose={this.handleRequestClose}>

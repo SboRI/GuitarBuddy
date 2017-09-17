@@ -1,5 +1,6 @@
-import * as React from 'react';
-import RaisedButton from 'material-ui/RaisedButton'
+// @flow
+
+import * as React from 'react'
 // Flow types
 
 type Props = {
@@ -8,8 +9,8 @@ type Props = {
 
 export default function FretboardConfig ({onIncDec}: Props) {
   return <div>
-    <RaisedButton onClick={() => onIncDec('DEC')}><i className="material-icons">remove</i></RaisedButton>
+    <button onClick={() => onIncDec('DEC')}><i className="material-icons">remove</i></button>
     String
-    <RaisedButton onClick={() => onIncDec('INC')}><i className="material-icons">add</i></RaisedButton>
+    <button onClick={() => onIncDec('INC')}><i className="material-icons">add</i></button>
   </div>
 }
