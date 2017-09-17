@@ -1,5 +1,4 @@
 // @flow
-
 import {Scale} from './Scales.js'
 
 test('test', () => {

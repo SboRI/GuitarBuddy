@@ -8,7 +8,6 @@ import _ from 'lodash'
 // Components
 import Metronome from './../../Metronome/Metronome.js'
 import type {BeatResolution} from './../../Metronome/Metronome.js'
-import RaisedButton from 'material-ui/RaisedButton'
 
 type State = {
   metronome: Metronome,
@@ -91,7 +90,7 @@ export default class MetronomeWrapper extends React.Component<State> {
 
   render () {
     return <div className='MetronomeWrapepr'>
-      <RaisedButton onClick={this.playMetronome}>{!this.state.isMetronomePlaying ? 'Start' : 'Stop'} Metronome</RaisedButton>
+      <button onClick={this.playMetronome}>{!this.state.isMetronomePlaying ? 'Start' : 'Stop'} Metronome</button>
       <div style={this.state.metronomeLight}/>
       <div> bpm: <input type='number' value={this.state.bpm} onChange={(event) => this.setMetronomeBpm(event.target.value)}/></div>
       <div> beatResolution:

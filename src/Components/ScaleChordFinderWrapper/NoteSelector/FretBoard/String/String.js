@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react';
+import * as React from 'react'
 
 import _ from 'lodash'
 
@@ -10,12 +10,14 @@ import type {Note} from '../../../../../Scales/Notes.js'
 // Components
 import Fret from './Fret/Fret.js'
 import type {SelectableFret} from './Fret/Fret.js'
-export type {SelectableFret}
 import TuningSelector from './TuningSelector/TuningSelector.js'
 import TuningSelectorDummy from './TuningSelector/TuningSelectorDummy.js'
 
 // Styles
 import './String.css'
+
+// Exports
+export type {SelectableFret}
 
 type Props = {
     numFrets: number,
