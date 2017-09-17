@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 import type {Note} from '../../../Scales/Notes.js'
 import {Notes} from '../../../Scales/Notes.js'
 import _ from 'lodash'
@@ -14,8 +14,7 @@ type Props = {
   passShowScale: (scale: {root: Note, scale: string}) => any
 }
 
-export default class ScaleDisplayDialog extends React.Component {
-  props: Props
+export default class ScaleDisplayDialog extends React.Component<Props> {
   constructor (props: Props) {
     super(props);
     (this: any).showFullScale = this.showFullScale.bind(this)

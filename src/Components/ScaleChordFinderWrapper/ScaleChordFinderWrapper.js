@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react';
 
 // Stylesheet
 import './ScaleChordFinderWrapper.css'
@@ -25,15 +25,13 @@ import type {Note} from './../../Scales/Notes.js'
 type State = {
   selectedNotes: Note[],
   selectedRoot: ?Note,
-  scaleDisplayDialog: ?React$Element<any>,
+  scaleDisplayDialog: ?React.Element<any>,
   noteSelectorTuning: Note[],
   scaleToShow: ?{root: Note, scale: string},
   chordToShow: Chord[]
 }
 
-export default class ScaleChordFinderWrapper extends React.Component {
-  state: State
-
+export default class ScaleChordFinderWrapper extends React.Component<any, State> {
   constructor (props: any) {
     super(props);
     (this: any).btnClicked = this.btnClicked.bind(this);

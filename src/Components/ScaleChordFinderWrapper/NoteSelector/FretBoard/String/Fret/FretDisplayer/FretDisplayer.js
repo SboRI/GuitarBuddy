@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 
 // Stylesheet
 import './../Fret.css'
@@ -9,10 +9,7 @@ type Props = {
   fretText: string,
 }
 
-export default class FretDisplayer extends React.PureComponent {
-
-  props: Props
-
+export default class FretDisplayer extends React.PureComponent<Props> {
   render () {
     return <div
       className='FretDisplayer'>

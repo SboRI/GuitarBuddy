@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react';
 
 import _ from 'lodash'
 // import fp from 'lodash/fp'
@@ -31,10 +31,7 @@ type Props = {
     }
 }
 
-class Fretboard extends React.Component {
-
-  props: Props
-
+class Fretboard extends React.Component<Props> {
   // constructor (props: Props) {
   //   super(props)
   // }
@@ -68,7 +65,6 @@ class Fretboard extends React.Component {
       <Fretmarker numFrets={this.props.numFrets}/>
     </div>
   }
-
 }
 
 export default Fretboard

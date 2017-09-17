@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 
 // Libraries
 import _ from 'lodash'
@@ -21,7 +21,8 @@ type State = {
 
 type Props = {}
 
-export default class MetronomeWrapper extends React.Component<Props, State> {
+export default class MetronomeWrapper extends React.Component<State> {
+  static defaultProps: Props;
 
   constructor (props: Props) {
     super(props);

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 
 export default function TuningSelectorDummy () {
   return <div className='TuningSelectorDummy'>

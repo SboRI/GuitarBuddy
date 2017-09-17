@@ -1,7 +1,7 @@
-import React from 'react'
+import * as React from 'react';
 import _ from 'lodash'
 
-export default class MetronomeSettings extends React.PureComponent {
+export default class MetronomeSettings extends React.PureComponent<{}, $FlowFixMeState> {
   render () {
     return <div className='MetronomeSettings'>
       <div>

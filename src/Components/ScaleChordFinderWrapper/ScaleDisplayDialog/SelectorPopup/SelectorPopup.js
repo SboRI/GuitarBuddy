@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 
 import Popover from 'material-ui/Popover'
 import Menu from 'material-ui/Menu'
@@ -17,8 +17,7 @@ type Props = {
   showFullScale: ()=>any
 }
 
-export default class SelectorPopup extends React.Component {
-  props: Props
+export default class SelectorPopup extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
@@ -29,7 +28,7 @@ export default class SelectorPopup extends React.Component {
     }
   }
 
-  handleClick (event: SyntheticEvent) {
+  handleClick (event: SyntheticEvent<>) {
     this.setState({isPopoverOpen: true, anchorEl: event.currentTarget})
   }
 
@@ -39,7 +38,6 @@ export default class SelectorPopup extends React.Component {
     })
   }
 
-  state: State
   render () {
     return <div>
       <FlatButton >

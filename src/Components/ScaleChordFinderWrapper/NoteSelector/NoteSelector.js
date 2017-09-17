@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react';
 
 // Stylesheet
 import './NoteSelector.css'
@@ -44,10 +44,7 @@ type State = {
 // Defaults
 const defaultTuning = _.map(['E2', 'A2', 'D3', 'G3', 'B3', 'E4'], note => Notes.fromString(note))
 
-class NoteSelector extends React.Component {
-
-  state: State
-
+class NoteSelector extends React.Component<Props, State> {
   constructor (props: Props) {
     // real stuff
     super(props)

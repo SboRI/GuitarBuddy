@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react';
 
 // Stylesheet
 import './NoteSelector.css'
@@ -24,10 +24,7 @@ type State = {
   strings: {baseNote: Note, stringId: string}[]
 }
 
-class NoteDisplayer extends React.Component {
-  props: Props
-  state: State
-
+class NoteDisplayer extends React.Component<Props, State> {
   render () {
     const selectedNotes = _.map(this.props.selectedNotesWithIntervals, (note) => { return {...note, stringID: ''} })
 
@@ -45,7 +42,6 @@ class NoteDisplayer extends React.Component {
 
     </div>
   }
-
 }
 
 export default NoteDisplayer

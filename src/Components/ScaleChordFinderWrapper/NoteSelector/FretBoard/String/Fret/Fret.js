@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react';
 
 // Stylesheet
 import './Fret.css'
@@ -29,9 +29,8 @@ type Props = {
     classNames: string
 }
 
-export default class Fret extends React.PureComponent {
+export default class Fret extends React.PureComponent<Props> {
   longPress: boolean
-  props: Props
 
   constructor (props: Props) {
     super(props)
