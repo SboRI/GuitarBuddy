@@ -71,8 +71,13 @@ const scaleGenerator = (function () {
     return _.map(toIntegerIntervals(intervals), (relNote: number) => Notes.transpose(relNote)(root))
   }
 
-  const scaleIntervalsToNoteIntervals = function (intervals: number[], root: Note) {
-    return _.map(toIntegerIntervals(intervals), (relNote: number) => Object.assign({note: Notes.transpose(relNote)(root)}, {interval: Notes.fromIntegerIntervals(relNote)}))
+  const scaleIntervalsToNoteIntervals = function (intervals: number[], root: Note): {note: Note, interval: string}[] {
+    return _.map(toIntegerIntervals(intervals), (relNote: number) => {
+      return {
+        note: Notes.transpose(relNote)(root),
+        interval: Notes.fromIntegerIntervals(relNote)
+      }
+    })
   }
 
   const areAllNotesInScale = function (notes: Note[], scale: Note[]) {

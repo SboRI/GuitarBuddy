@@ -17,7 +17,7 @@ type Props = {
     tuning: Note[],
     showAllNotes: boolean,
     showAllRootNotes: boolean,
-    selectedNotesWithIntervals: []
+    selectedNotesWithIntervals: {note: Note, hasInterval: true, interval: string}[] | {note: Note, hasInterval: false}[]
 }
 
 type State = {

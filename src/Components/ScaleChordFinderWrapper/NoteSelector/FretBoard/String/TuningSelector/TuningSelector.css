@@ -1,7 +1,6 @@
 .TuningSelector, .TuningSelectorDummy {
     position: relative;
     flex-grow: 0;
-    /*min-width: 50px;*/
     user-select: none;
     cursor: pointer;
     vertical-align: bottom;
@@ -23,4 +22,10 @@
 
 .tuneDown-btn:hover, .tuneUp-btn:hover {
     background-color: lightgrey
+}
+
+.tuneDown-btn, .tuneUp-btn, .btnDummy{
+    overflow: hidden;
+    max-width: 20px;
+    border: none
 }

@@ -8,6 +8,7 @@ import './ScaleChordFinderWrapper.css'
 import {Notes} from './../../Scales/Notes.js'
 import {Scale} from './../../Scales/Scales.js'
 import Chords from './../../Scales/Chords.js'
+import type {Chord} from './../../Scales/Chords.js'
 
 import _ from 'lodash'
 
@@ -27,7 +28,7 @@ type State = {
   scaleDisplayDialog: ?React$Element<any>,
   noteSelectorTuning: Note[],
   scaleToShow: ?{root: Note, scale: string},
-  chordToShow: []
+  chordToShow: Chord[]
 }
 
 export default class ScaleChordFinderWrapper extends React.Component {
@@ -82,7 +83,7 @@ export default class ScaleChordFinderWrapper extends React.Component {
         <NoteDisplayer
           rootNote={root}
           selectedNotes={Scale.getScaleNotesFromName(scale, root)}
-          selectedNotesWithIntervals={Scale.getScaleNotesWithIntervalsFromName(scale, root)}
+          selectedNotesWithIntervals={_.map(Scale.getScaleNotesWithIntervalsFromName(scale, root), intvl => { return {...intvl, hasInterval: true} })}
           showAllNotes={true}
           showAllRootNotes={true}
           tuning={this.state.noteSelectorTuning}
@@ -114,7 +115,13 @@ export default class ScaleChordFinderWrapper extends React.Component {
 
       {this.state.scaleDisplayDialog}
       {this.displaySelectedScale()}
-      {this.state.chordToShow.length > 0 ? _.map(this.state.chordToShow, chords => <div> {chords.chord.name} </div>) : null}
+      {this.state.chordToShow.length > 0 ? _.map(this.state.chordToShow,
+        chords => <div>
+          <p>{Notes.toString(chords.root)}-{chords.chord.name}</p>
+          <p> Notes missing: {_.map(chords.notesMissing, note => Notes.toString(note))} </p>
+        </div>
+        )
+        : null}
 
         </div>
   }

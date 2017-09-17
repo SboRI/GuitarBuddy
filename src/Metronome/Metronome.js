@@ -1,6 +1,6 @@
 // @flow
 
-type BeatResolution = 1 | 2 | 4 | 8 | 16
+export type BeatResolution = 1 | 2 | 4 | 8 | 16
 
 export default class Metronome {
   audioContext: AudioContext
