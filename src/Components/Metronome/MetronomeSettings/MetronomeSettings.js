@@ -1,4 +1,6 @@
-import * as React from 'react';
+// @flow
+
+import * as React from 'react'
 import _ from 'lodash'
 
 export default class MetronomeSettings extends React.PureComponent<{}, $FlowFixMeState> {

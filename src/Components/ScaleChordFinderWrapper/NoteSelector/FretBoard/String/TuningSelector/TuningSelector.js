@@ -1,4 +1,6 @@
-import * as React from 'react';
+// @flow
+
+import * as React from 'react'
 
 import type {Note} from './../../../../../../Scales/Notes.js'
 import {Notes} from './../../../../../../Scales/Notes.js'

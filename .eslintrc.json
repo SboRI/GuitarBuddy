@@ -22,7 +22,8 @@
       "always", {
         "annotationStyle": "line"
       }
-    ]
+    ],
+    "react/prop-types": 0
   },
   "env": {
     "jest": true

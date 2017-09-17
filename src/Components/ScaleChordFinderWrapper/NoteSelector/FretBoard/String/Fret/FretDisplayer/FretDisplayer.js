@@ -1,4 +1,6 @@
-import * as React from 'react';
+// @flow
+
+import * as React from 'react'
 
 // Stylesheet
 import './../Fret.css'
