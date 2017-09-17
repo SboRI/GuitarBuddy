@@ -16,7 +16,13 @@
   "rules": {
     "newline-per-chained-call": 1,
     "import/no-duplicates": 2,
-    "no-duplicate-imports": 0
+    "no-duplicate-imports": 0,
+    "flowtype/require-valid-file-annotation": [
+      2,
+      "always", {
+        "annotationStyle": "line"
+      }
+    ]
   },
   "env": {
     "jest": true

@@ -1,5 +1,4 @@
 // @flow
-// import _ from 'lodash'
 
 type BeatResolution = 1 | 2 | 4 | 8 | 16
 

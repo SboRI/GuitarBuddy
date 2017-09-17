@@ -16,8 +16,7 @@ type State = {
 
 type Props = {}
 
-export default class MetronomeWrapper extends React.Component {
-  state: State
+export default class MetronomeWrapper extends React.Component<Props, State> {
 
   constructor (props: Props) {
     super(props);
@@ -50,7 +49,7 @@ export default class MetronomeWrapper extends React.Component {
     () => this.state.metronome.play(this.state.isMetronomePlaying))
   }
 
-  setMetronomeBpm (bpm) {
+  setMetronomeBpm (bpm: number) {
     this.setState((old, props) => { return {bpm} }, () => this.state.metronome.setTempo({bpm: this.state.bpm, beatResolution: this.state.beatResolution}))
   }
 
