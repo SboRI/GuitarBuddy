@@ -5,7 +5,7 @@ import type {Note} from '../../../Scales/Notes.js'
 import {Notes} from '../../../Scales/Notes.js'
 import _ from 'lodash'
 import './ScaleDisplayDialog.css'
-import {Button, Dropdown, Table} from 'semantic-ui-react'
+import {Label, Button, Dropdown, Table} from 'semantic-ui-react'
 
 // import SelectorPopup from './SelectorPopup/SelectorPopup.js'
 
@@ -34,14 +34,17 @@ export default class ScaleDisplayDialog extends React.Component<Props> {
         <Table.Header>
           <Table.Row className='ScaleDisplayText'>
 
-            <Table.HeaderCell className='ScaleDisplayText'>
-              <div className='ScaleDisplayText'>Root Note</div>
+            <Table.HeaderCell textAlign='center'>
+              <div >Root Note</div>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className='ScaleDisplayText'>Scale</div>
+              <div >Scale</div>
+            </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'>
+              <div >Show Full Scale</div>
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <div className='ScaleDisplayText'>Show Full Scale</div>
+              <div >Corresponding Mode</div>
             </Table.HeaderCell>
 
             {// </TableRow>
@@ -53,32 +56,32 @@ export default class ScaleDisplayDialog extends React.Component<Props> {
           {_.map(this.props.scales,
             (scale, key) => {
               return <Table.Row className='Scale Scale-table' key={key} >
-                <Table.Cell className='Scale-Root ScaleDisplayText'>
-                  <div className="inline-flex" >
-                    {Notes.toString(scale.root)}
-                    <Button size='mini'>
-                      <Dropdown text='' pointing='left'>
-                        <Dropdown.Menu>
-                          {_.map(scale.correspondingModes, (el, key) =>
-                            <Dropdown.Item onClick={() => this.showFullScale({root: scale.root, scale: el})} key={key}>
-                              {el}
-                            </Dropdown.Item>)}
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </Button>
+                <Table.Cell textAlign='center' className='Scale-Root ScaleDisplayText'>
 
-                  </div>
+                  {Notes.toString(scale.root)}
                 </Table.Cell>
                 <Table.Cell className='Scale-Name'>
                   {scale.scale}
                 </Table.Cell>
-                <Table.Cell>
+                <Table.Cell textAlign='center'>
                   <Button onClick={() => this.showFullScale({root: scale.root, scale: scale.scale})}>
                     <div className="inline-flex" style={{'justifyContent': 'center'}}>
 
                       <i className="material-icons">queue_music</i>
                     </div>
                   </Button>
+                </Table.Cell>
+                <Table.Cell>
+
+                  <Dropdown button='true' text={['Modes with root ', <b>{Notes.toString(scale.root)}</b>]} pointing='left' >
+
+                    <Dropdown.Menu>
+                      {_.map(scale.correspondingModes, (el, key) =>
+                        <Dropdown.Item onClick={() => this.showFullScale({root: scale.root, scale: el})} key={key}>
+                          {el}
+                        </Dropdown.Item>)}
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </Table.Cell>
               </Table.Row>
             })}
