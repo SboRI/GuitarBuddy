@@ -1,8 +1,11 @@
-import * as React from 'react'
+// @flow
+
+// Not needed right now, since removal of MaterialUI
+
+/* import * as React from 'react'
 
 import Popover from 'material-ui/Popover'
 import Menu from 'material-ui/Menu'
-import MenuItem from 'material-ui/MenuItem'
 
 type State = {
   isPopoverOpen: boolean,
@@ -58,3 +61,4 @@ export default class SelectorPopup extends React.Component<Props, State> {
     </div>
   }
 }
+ */

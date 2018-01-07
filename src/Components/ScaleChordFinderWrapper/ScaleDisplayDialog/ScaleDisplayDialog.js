@@ -32,26 +32,26 @@ export default class ScaleDisplayDialog extends React.Component<Props> {
           {// <TableRow className='ScaleDisplayText'>
           }
 
-            <td className='ScaleDisplayText'>
-              <div className='ScaleDisplayText'>Root Note</div>
-            </td>
-            <td>
-              <div className='ScaleDisplayText'>Scale</div>
-            </td>
-            <td>
-              <div className='ScaleDisplayText'>Show Full Scale</div>
-            </td>
+          <td className='ScaleDisplayText'>
+            <div className='ScaleDisplayText'>Root Note</div>
+          </td>
+          <td>
+            <div className='ScaleDisplayText'>Scale</div>
+          </td>
+          <td>
+            <div className='ScaleDisplayText'>Show Full Scale</div>
+          </td>
 
           {// </TableRow>
           }
         </tr>
-          {_.map(this.props.scales,
-            (scale, key) => {
-              return <tr className='Scale Scale-table' key={key}>
-                <td className='Scale-Root ScaleDisplayText'>
-                  <div className="inline-flex">
+        {_.map(this.props.scales,
+          (scale, key) => {
+            return <tr className='Scale Scale-table' key={key}>
+              <td className='Scale-Root ScaleDisplayText'>
+                <div className="inline-flex">
                   name: {Notes.toString(scale.root)} {}
-                    {/* <i className="material-icons Scale-dropdown-icon">menu</i>
+                  {/* <i className="material-icons Scale-dropdown-icon">menu</i>
                     <div>{Notes.toString(scale.root)} </div> }
                     <SelectorPopup
                       // correspondingModes={}
@@ -59,21 +59,21 @@ export default class ScaleDisplayDialog extends React.Component<Props> {
                       showFullScale={() => this.showFullScale(scale)}
                       // passModeKey={}
                       /> */}
-                  </div>
-                </td>
-                <td className='Scale-Name'>
-                  {scale.scale}
-                </td>
-                <td>
-                  <button onClick={() => this.showFullScale({root: scale.root, scale: scale.scale})}>
-                    <div className="inline-flex" style={{'justifyContent': 'center'}}>
+                </div>
+              </td>
+              <td className='Scale-Name'>
+                {scale.scale}
+              </td>
+              <td>
+                <button onClick={() => this.showFullScale({root: scale.root, scale: scale.scale})}>
+                  <div className="inline-flex" style={{'justifyContent': 'center'}}>
 
-                      <i className="material-icons">queue_music</i>
-                    </div>
-                  </button>
-                </td>
-              </tr>
-            })}
+                    <i className="material-icons">queue_music</i>
+                  </div>
+                </button>
+              </td>
+            </tr>
+          })}
       </table>
     </div>
   }

@@ -6,7 +6,6 @@ import './App.css'
 import ScaleChordFinderWrapper from './Components/ScaleChordFinderWrapper/ScaleChordFinderWrapper.js'
 import MetronomeWrapper from './Components/Metronome/MetronomeWrapper.js'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // import getMuiTheme from 'material-ui/styles/getMuiTheme'
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 // import AppBar from 'material-ui/AppBar'
@@ -20,13 +19,11 @@ class App extends Component<{}> {
   render () {
     return (
       <div className="App">
-        <MuiThemeProvider >
           <div>
             <MetronomeWrapper />
             {/* <AppBar title='GuitarBuddy'/> */}
             <ScaleChordFinderWrapper />
           </div>
-        </MuiThemeProvider>
       </div>
     )
   }

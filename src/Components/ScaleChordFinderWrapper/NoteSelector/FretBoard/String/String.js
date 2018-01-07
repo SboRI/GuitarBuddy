@@ -42,17 +42,17 @@ type Props = {
 }
 
 export default function String ({
-      numFrets,
-      classNames,
-      tuning,
-      selectedNotes,
-      rootNote,
-      StringId,
-      showAllRootNotes,
-      showAllNotes,
-      changeTuning,
-      selectableFret
-    }: Props) {
+  numFrets,
+  classNames,
+  tuning,
+  selectedNotes,
+  rootNote,
+  StringId,
+  showAllRootNotes,
+  showAllNotes,
+  changeTuning,
+  selectableFret
+}: Props) {
   const notes = []
   for (var i = 0; i <= numFrets; i++) {
     notes.push(Notes.transpose(i)(tuning))
@@ -95,15 +95,15 @@ export default function String ({
 
   return <div
     className={'String ' + classNames}>
-      {selectableFret.selectable
+    {selectableFret.selectable
       ? <TuningSelector
         baseNote={tuning}
         passTuning={passTuning}
       />
       : <TuningSelectorDummy/>}
 
-      {selectableFret.selectable
-        ? _.map(notes, (note, index, collection) => (<Fret
+    {selectableFret.selectable
+      ? _.map(notes, (note, index, collection) => (<Fret
         note={note}
         selectableFret={{
           selectable: true,
@@ -117,8 +117,8 @@ export default function String ({
         classNames={index === 0
           ? 'Fret-zeroFret'
           : index === collection.length - 1
-          ? 'Fret-last'
-          : ''
+            ? 'Fret-last'
+            : ''
         }/>))
       : _.map(notes, (note, index, collection) => (<Fret
         note={note}
@@ -129,12 +129,11 @@ export default function String ({
         classNames={index === 0
           ? 'Fret-zeroFret'
           : index === collection.length - 1
-          ? 'Fret-last'
-          : ''
+            ? 'Fret-last'
+            : ''
         }
         selectableFret={{selectable: false}}/>))
     }
 
   </div>
 }
-

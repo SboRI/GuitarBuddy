@@ -29,9 +29,9 @@ const Notes = (function () {
   return {
     fromString: function (string: string): Note {
       return _.flow(
-      Notes.parseNoteString,
-      Notes.toNoteValue
-    )(string)
+        Notes.parseNoteString,
+        Notes.toNoteValue
+      )(string)
     },
 
     toString: function (note: Note, includePitch: boolean = false): string {
@@ -89,9 +89,9 @@ const Notes = (function () {
         }
         if (_noteValue === 0) { console.log(note) }
         return _.flow(
-      Notes.create,
-      Object.freeze
-    )(_noteValue, _pitch)
+          Notes.create,
+          Object.freeze
+        )(_noteValue, _pitch)
       }
     },
 
@@ -101,9 +101,9 @@ const Notes = (function () {
       const halfsteps = Notes.parseAccidentals(accidentals)
 
       return _.flow(
-      Notes.create,
-      Notes.transpose(halfsteps)
-    )(fullToneValue, pitch)
+        Notes.create,
+        Notes.transpose(halfsteps)
+      )(fullToneValue, pitch)
     },
 
     equalsValue: function (note1: Note, note2: Note): boolean {

@@ -98,15 +98,15 @@ export default class MetronomeWrapper extends React.Component<State> {
           return (
             <div>
               <input
-              type='radio'
-              value={res}
-              checked={res === this.state.beatResolution}
-              onChange={(e) => this.setBeatResolution(parseInt(e.target.value, 10)) }
+                type='radio'
+                value={res}
+                checked={res === this.state.beatResolution}
+                onChange={(e) => this.setBeatResolution(parseInt(e.target.value, 10)) }
               />
-                {res}
-              </div>)
+              {res}
+            </div>)
         }
-            )}
+        )}
         </form>
       </div>
 

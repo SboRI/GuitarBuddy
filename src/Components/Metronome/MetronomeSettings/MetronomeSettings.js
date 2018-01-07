@@ -3,7 +3,7 @@
 import * as React from 'react'
 import _ from 'lodash'
 
-export default class MetronomeSettings extends React.PureComponent<{}, $FlowFixMeState> {
+export default class MetronomeSettings extends React.PureComponent<{}, {}> {
   render () {
     return <div className='MetronomeSettings'>
       <div>
@@ -12,7 +12,7 @@ export default class MetronomeSettings extends React.PureComponent<{}, $FlowFixM
           type='number'
           value={this.state.bpm}
           onChange=
-          { (event) => this.setMetronomeBpm(event.target.value) }/></div >
+            { (event) => this.setMetronomeBpm(event.target.value) }/></div >
       <div >
         beatResolution:
         <form >

@@ -117,9 +117,9 @@ export default class ScaleChordFinderWrapper extends React.Component<any, State>
           <p>{Notes.toString(chords.root)}-{chords.chord.name}</p>
           <p> Notes missing: {_.map(chords.notesMissing, note => Notes.toString(note))} </p>
         </div>
-        )
+      )
         : null}
 
-        </div>
+    </div>
   }
 }

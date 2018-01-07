@@ -20,7 +20,7 @@ const scaleGenerator = (function () {
 
   // Modes relative to major: [[Tonic relative to major, 'Modename']]
   // const modes = [[1], [2], [3], [4], [5], [6], [7]]
-//  const majorModeNames = ['Ionian', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Aeolian', 'Locrian']
+  //  const majorModeNames = ['Ionian', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Aeolian', 'Locrian']
 
   // Intervals of the scales
   const major = [2, 2, 1, 2, 2, 2, 1]
@@ -115,8 +115,8 @@ const scaleGenerator = (function () {
 
       const scaleNotes = rootNote
       // Get only scales with specified rootNote
-      ? getScaleNotes(scaleIntervals, [rootNote])
-      : getScaleNotes(scaleIntervals, Notes.getAllNotes(0))
+        ? getScaleNotes(scaleIntervals, [rootNote])
+        : getScaleNotes(scaleIntervals, Notes.getAllNotes(0))
 
       const filteredByNote = _.map(scaleNotes, (scale) => {
         return {name: scale.name, scales: _.filter(scale.scales, ({rootNote, notes}) => areAllNotesInScale(selectedNotes, notes))}

@@ -49,11 +49,11 @@ const Chords = (function () {
     const chordResults = _.filter(chordResultsAny, chord => chord.doesContain)
 
     return _.map(
-        chordResults,
-        chord => Object.assign({}, {
-          root,
-          chord: chord.chord,
-          notesMissing: _.map(chord.intervalsMissing, interval => Notes.transpose(interval)(root))}))
+      chordResults,
+      chord => Object.assign({}, {
+        root,
+        chord: chord.chord,
+        notesMissing: _.map(chord.intervalsMissing, interval => Notes.transpose(interval)(root))}))
   }
 
   return {
