@@ -90,7 +90,7 @@ export default function String ({
 
   const getScaleDegreeInfo = function (fretNote) {
     const note = _.filter(selectedNotes, (sel) => Notes.equalsValue(sel.note, fretNote))[0]
-    return note && note.hasOwnProperty('interval') ? note.interval : null
+    return note && note.hasInterval ? note.interval : null
   }
 
   return <div

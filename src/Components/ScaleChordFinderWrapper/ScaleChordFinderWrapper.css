@@ -1,4 +1,11 @@
 .ScaleChordFinderWrapper-Btn {
     margin-top: 20px;
     margin-bottom: 20px;
+
+}
+
+.ScaleChordFinderWrapper{
+    width: 100%;
+    max-width: 1920px;
+    margin:auto
 }

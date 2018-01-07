@@ -5,7 +5,6 @@
   noteValue
 } */
 
-// const _ = require('lodash')
 import _ from 'lodash'
 import {Notes} from './Notes'
 import type {Note} from './Notes'
@@ -20,7 +19,7 @@ const scaleGenerator = (function () {
 
   // Modes relative to major: [[Tonic relative to major, 'Modename']]
   // const modes = [[1], [2], [3], [4], [5], [6], [7]]
-  //  const majorModeNames = ['Ionian', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Aeolian', 'Locrian']
+  const majorModeNames = ['Ionian', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Aeolian', 'Locrian']
 
   // Intervals of the scales
   const major = [2, 2, 1, 2, 2, 2, 1]
@@ -106,7 +105,16 @@ const scaleGenerator = (function () {
     })
   }
 
+  const getModeIntervals = function (mode: string): Scale {
+    const intervals = rotateArray(_.indexOf(majorModeNames, mode))(major)
+    return {name: mode, intervals}
+  }
+
   return {
+
+    getMajorModeNames: function (): string[] {
+      return majorModeNames
+    },
 
     getScalesFromNotes: function (selectedNotes: Note[], rootNote: ?Note): {root: Note, scale: string}[] {
       if (!rootNote && selectedNotes.length === 0) {
@@ -138,12 +146,20 @@ const scaleGenerator = (function () {
 
     getScaleNotesFromName: function (name: string, root: Note): Note[] {
       // TODO real implementation
+      if (_.includes(majorModeNames, name)) {
+        const modeIntervals = getModeIntervals(name)
+        return scaleIntervalsToNotes(modeIntervals.intervals, root)
+      }
 
       const intervals = _.first(_.filter(scaleIntervals, (scale) => scale.name === name)).intervals
       return scaleIntervalsToNotes(intervals, root)
     },
 
     getScaleNotesWithIntervalsFromName: function (name: string, root: Note) {
+      if (_.includes(majorModeNames, name)) {
+        const modeIntervals = getModeIntervals(name)
+        return scaleIntervalsToNoteIntervals(modeIntervals.intervals, root)
+      }
       const intervals = _.first(_.filter(scaleIntervals, (scale) => scale.name === name)).intervals
       return scaleIntervalsToNoteIntervals(intervals, root)
     }

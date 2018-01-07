@@ -1,7 +1,7 @@
 .Fret {
   position: relative;
   flex-grow: 1;
-  /*min-width: 50px;*/
+  min-width: 50px;
   min-height: 20px;
   width: 50px;
   border-width: 0;
@@ -27,11 +27,19 @@
 }
 
 .FretText {
-  font-size: 15px;
-  display: inline-block;
-    color: transparent;
 
+  font-size: 12px;
+  display: inline-block;
+  color: transparent;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
 }
+
+@media (min-width: 800px){
+  .FretText {font-size: 16px;}
+}
+
 
 .FretDisplayer {
   background-color: inherit;
@@ -107,27 +115,23 @@
 }
 
 .prime{
-  background-color: #4F6576
+  background-color: cornflowerblue
 }
 
 .second{
-  background-color: #AA5939,
-  
-  
-  
-
+  background-color: #AA5939
 }
 
 .third{
-  background-color: #026B3E
+  background-color: rgb(2, 107, 58)
 }
 
 .fourth{
-  background-color: #B89C77
+  background-color: rgb(119, 140, 184)
 }
 
 .fifth{
-  background-color: #9C5B03,
+  background-color: blue
 }
 
 .sixth{
@@ -135,11 +139,11 @@
 }
 
 .seventh{
-  background-color: #9C2F03,
+  background-color: red
 }
 
 .tritone{
-  background-color: #9C0303,
+  background-color: rgb(20, 20, 20)
 }
 
 

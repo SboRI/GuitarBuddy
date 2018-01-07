@@ -5,10 +5,12 @@ import type {Note} from '../../../Scales/Notes.js'
 import {Notes} from '../../../Scales/Notes.js'
 import _ from 'lodash'
 import './ScaleDisplayDialog.css'
+import {Button, Dropdown, Table} from 'semantic-ui-react'
+
 // import SelectorPopup from './SelectorPopup/SelectorPopup.js'
 
 type Props = {
-  scales: {root: Note, scale: string}[],
+  scales: {root: Note, scale: string, correspondingModes: string[]}[],
   passShowScale: (scale: {root: Note, scale: string}) => any
 }
 
@@ -23,58 +25,65 @@ export default class ScaleDisplayDialog extends React.Component<Props> {
   }
 
   render () {
-    return <div className='ScaleDisplayDialog'>
-      <table
+    return <div className='ScaleDisplayDialog' >
+      <Table
         className=''
         // selectable={false}
+
       >
-        <tr className='ScaleDisplayText' displaySelectAll={false} adjustForCheckbox={false}>
-          {// <TableRow className='ScaleDisplayText'>
-          }
+        <Table.Header>
+          <Table.Row className='ScaleDisplayText'>
 
-          <td className='ScaleDisplayText'>
-            <div className='ScaleDisplayText'>Root Note</div>
-          </td>
-          <td>
-            <div className='ScaleDisplayText'>Scale</div>
-          </td>
-          <td>
-            <div className='ScaleDisplayText'>Show Full Scale</div>
-          </td>
+            <Table.HeaderCell className='ScaleDisplayText'>
+              <div className='ScaleDisplayText'>Root Note</div>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className='ScaleDisplayText'>Scale</div>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              <div className='ScaleDisplayText'>Show Full Scale</div>
+            </Table.HeaderCell>
 
-          {// </TableRow>
-          }
-        </tr>
-        {_.map(this.props.scales,
-          (scale, key) => {
-            return <tr className='Scale Scale-table' key={key}>
-              <td className='Scale-Root ScaleDisplayText'>
-                <div className="inline-flex">
-                  name: {Notes.toString(scale.root)} {}
-                  {/* <i className="material-icons Scale-dropdown-icon">menu</i>
-                    <div>{Notes.toString(scale.root)} </div> }
-                    <SelectorPopup
-                      // correspondingModes={}
-                      note={{name: Notes.toString(scale.root), key}}
-                      showFullScale={() => this.showFullScale(scale)}
-                      // passModeKey={}
-                      /> */}
-                </div>
-              </td>
-              <td className='Scale-Name'>
-                {scale.scale}
-              </td>
-              <td>
-                <button onClick={() => this.showFullScale({root: scale.root, scale: scale.scale})}>
-                  <div className="inline-flex" style={{'justifyContent': 'center'}}>
+            {// </TableRow>
+            }
+          </Table.Row>
+        </Table.Header>
 
-                    <i className="material-icons">queue_music</i>
+        <Table.Body>
+          {_.map(this.props.scales,
+            (scale, key) => {
+              return <Table.Row className='Scale Scale-table' key={key} >
+                <Table.Cell className='Scale-Root ScaleDisplayText'>
+                  <div className="inline-flex" >
+                    {Notes.toString(scale.root)}
+                    <Button size='mini'>
+                      <Dropdown text='' pointing='left'>
+                        <Dropdown.Menu>
+                          {_.map(scale.correspondingModes, (el, key) =>
+                            <Dropdown.Item onClick={() => this.showFullScale({root: scale.root, scale: el})} key={key}>
+                              {el}
+                            </Dropdown.Item>)}
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Button>
+
                   </div>
-                </button>
-              </td>
-            </tr>
-          })}
-      </table>
+                </Table.Cell>
+                <Table.Cell className='Scale-Name'>
+                  {scale.scale}
+                </Table.Cell>
+                <Table.Cell>
+                  <Button onClick={() => this.showFullScale({root: scale.root, scale: scale.scale})}>
+                    <div className="inline-flex" style={{'justifyContent': 'center'}}>
+
+                      <i className="material-icons">queue_music</i>
+                    </div>
+                  </Button>
+                </Table.Cell>
+              </Table.Row>
+            })}
+        </Table.Body>
+      </Table>
     </div>
   }
 }

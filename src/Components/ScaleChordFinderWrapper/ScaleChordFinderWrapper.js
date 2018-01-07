@@ -9,6 +9,7 @@ import {Notes} from './../../Scales/Notes.js'
 import {Scale} from './../../Scales/Scales.js'
 import Chords from './../../Scales/Chords.js'
 import type {Chord} from './../../Scales/Chords.js'
+import {Label, Button, Radio} from 'semantic-ui-react'
 
 import _ from 'lodash'
 
@@ -27,7 +28,9 @@ type State = {
   scaleDisplayDialog: ?React.Element<any>,
   noteSelectorTuning: Note[],
   scaleToShow: ?{root: Note, scale: string},
-  chordToShow: Chord[]
+  chordToShow: Chord[],
+  modeRootToShow: ?Note,
+  displayIntervals: boolean
 }
 
 export default class ScaleChordFinderWrapper extends React.Component<any, State> {
@@ -43,7 +46,9 @@ export default class ScaleChordFinderWrapper extends React.Component<any, State>
       scaleDisplayDialog: null,
       noteSelectorTuning: [],
       scaleToShow: null,
-      chordToShow: []
+      chordToShow: [],
+      modeRootToShow: null,
+      displayIntervals: false
     }
   }
 
@@ -57,7 +62,8 @@ export default class ScaleChordFinderWrapper extends React.Component<any, State>
       return
     }
     const scales = Scale.getScalesFromNotes(this.state.selectedNotes, this.state.selectedRoot)
-    const scaleDisplayDialog = <ScaleDisplayDialog scales={scales} passShowScale={this.getScaleToShow}/>
+    const scalesWithModes = _.map(scales, (scale) => Object.assign({}, scale, {correspondingModes: Scale.getMajorModeNames()}))
+    const scaleDisplayDialog = <ScaleDisplayDialog scales={scalesWithModes} passShowScale={this.getScaleToShow} />
     this.setState({scaleDisplayDialog})
   }
   btnClicked () {
@@ -75,12 +81,13 @@ export default class ScaleChordFinderWrapper extends React.Component<any, State>
     if (this.state.scaleToShow) {
       const root = this.state.scaleToShow.root
       const scale = this.state.scaleToShow.scale
+
       return <div>
         Showing: {Notes.toString(root)} {scale}
         <NoteDisplayer
           rootNote={root}
           selectedNotes={Scale.getScaleNotesFromName(scale, root)}
-          selectedNotesWithIntervals={_.map(Scale.getScaleNotesWithIntervalsFromName(scale, root), intvl => { return {...intvl, hasInterval: true} })}
+          selectedNotesWithIntervals={_.map(Scale.getScaleNotesWithIntervalsFromName(scale, root), intvl => { return {...intvl, hasInterval: this.state.displayIntervals} })}
           showAllNotes={true}
           showAllRootNotes={true}
           tuning={this.state.noteSelectorTuning}
@@ -98,17 +105,22 @@ export default class ScaleChordFinderWrapper extends React.Component<any, State>
   render () {
     return <div className='ScaleChordFinderWrapper'>
       <NoteSelector getSelectedNotes={this.getSelectedNotes}/>
-      <button
+      <Button
         onClick={this.btnClicked}
         className='ScaleChordFinderWrapper-Btn'>
         Search Scales
-      </button>
-      <div/>
-      <button
+      </Button>
+
+      <Button
         onClick={this.searchChords}
         className='ScaleChordFinderWrapper-Btn-searchChords'>
         Search Chords
-      </button>
+      </Button>
+      <Label horizontal>
+        <Radio toggle label='Display all Intervals' onClick={() => this.setState((prev, props) => {
+          return {displayIntervals: !prev.displayIntervals}
+        })}/>
+      </Label>
 
       {this.state.scaleDisplayDialog}
       {this.displaySelectedScale()}

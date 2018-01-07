@@ -15,14 +15,16 @@ type State = {
   bpm: number,
   beatResolutions: BeatResolution[],
   beatResolution: BeatResolution,
-  metronomeLight: {backgroundColor: string}
+  metronomeLight: {
+    width: string,
+    height: string,
+    margin: string,
+    backgroundColor: string}
 }
 
 type Props = {}
 
-export default class MetronomeWrapper extends React.Component<State> {
-  static defaultProps: Props;
-
+export default class MetronomeWrapper extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props);
     (this: any).playMetronome = this.playMetronome.bind(this);

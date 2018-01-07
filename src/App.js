@@ -1,7 +1,9 @@
+// @flow
+
 import React, { Component } from 'react'
 // import logo from './logo.svg'
 import './App.css'
-// import 'reset-css/reset.css'
+import 'reset-css/reset.css'
 
 import ScaleChordFinderWrapper from './Components/ScaleChordFinderWrapper/ScaleChordFinderWrapper.js'
 import MetronomeWrapper from './Components/Metronome/MetronomeWrapper.js'
@@ -15,15 +17,14 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
 class App extends Component<{}> {
-
   render () {
     return (
       <div className="App">
-          <div>
-            <MetronomeWrapper />
-            {/* <AppBar title='GuitarBuddy'/> */}
-            <ScaleChordFinderWrapper />
-          </div>
+        <div>
+          <MetronomeWrapper />
+          {/* <AppBar title='GuitarBuddy'/> */}
+          <ScaleChordFinderWrapper />
+        </div>
       </div>
     )
   }
