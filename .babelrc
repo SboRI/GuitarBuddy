@@ -1,5 +1,5 @@
 {
-  "presets": ["es2015", "flow", "react"],
+  "presets": ["es2015", "flow", "react", "stage-1"],
   "env":{
     "development":{
       "plugins":["flow-react-proptypes"]

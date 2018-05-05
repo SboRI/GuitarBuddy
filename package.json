@@ -31,7 +31,10 @@
     "flow-bin": "^0.63.1",
     "gh-pages": "^1.1.0",
     "htmlhint": "^0.9.13",
-    "react-test-renderer": "^16.2.0"
+    "react-test-renderer": "^16.2.0",
+    "@storybook/react": "^3.3.5",
+    "@storybook/addon-actions": "^3.3.5",
+    "@storybook/addon-links": "^3.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,7 +43,9 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "eslint": "eslint"
+    "eslint": "eslint",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "homepage": "/GuitarBuddy/"
 }

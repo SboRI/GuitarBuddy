@@ -2,8 +2,6 @@
 
 import React, { Component } from 'react'
 // import logo from './logo.svg'
-import './App.css'
-import 'reset-css/reset.css'
 
 import ScaleChordFinderWrapper from './Components/ScaleChordFinderWrapper/ScaleChordFinderWrapper.js'
 import MetronomeWrapper from './Components/Metronome/MetronomeWrapper.js'

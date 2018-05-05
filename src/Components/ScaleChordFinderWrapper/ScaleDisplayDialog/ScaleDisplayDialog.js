@@ -47,8 +47,6 @@ export default class ScaleDisplayDialog extends React.Component<Props> {
               <div >Corresponding Mode</div>
             </Table.HeaderCell>
 
-            {// </TableRow>
-            }
           </Table.Row>
         </Table.Header>
 
